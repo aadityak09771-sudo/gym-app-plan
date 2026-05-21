@@ -859,9 +859,15 @@
       
       <!-- Modal Header -->
       <div class="p-5 border-b border-zinc-800 bg-brand-dark sticky top-0 z-10">
-        <div class="flex justify-between items-center mb-4">
-          <h3 id="day-modal-title" class="text-2xl sm:text-3xl font-black text-brand-hot uppercase tracking-tight">Day Plan</h3>
-          <button onclick="closeModal('day-modal')" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 p-2 rounded-full"><i class="ti ti-x text-xl"></i></button>
+        <div class="flex justify-between items-start sm:items-center mb-4 flex-col sm:flex-row gap-3">
+          <div>
+            <h3 id="day-modal-title" class="text-2xl sm:text-3xl font-black text-brand-hot uppercase tracking-tight">Day Plan</h3>
+            <div class="flex items-center gap-2 mt-2 bg-zinc-900 p-1 rounded-full border border-zinc-700 w-max">
+              <button id="btn-gym-mode" onclick="setWorkoutMode('gym')" class="px-4 py-1.5 rounded-full text-xs font-bold bg-brand-hot text-black transition-colors shadow-sm">At Gym</button>
+              <button id="btn-home-mode" onclick="setWorkoutMode('home')" class="px-4 py-1.5 rounded-full text-xs font-bold text-zinc-400 hover:text-white transition-colors">Home Workout</button>
+            </div>
+          </div>
+          <button onclick="closeModal('day-modal')" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 p-2 rounded-full self-end sm:self-auto"><i class="ti ti-x text-xl"></i></button>
         </div>
         
         <div class="grid grid-cols-2 gap-6">
@@ -1272,9 +1278,9 @@
           { meal: "Full Day Protocol", food: "Target: 150g Protein, 200g Carbs, 60g Fat. Drink 3.5L Water.", img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80" }
         ],
         workout: [
-          { name: "Barbell Bench Press", reps: "4 sets of 8", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Lie on a flat bench, grip the barbell slightly wider than shoulder-width. Lower the bar to your mid-chest, then press it back up." },
+          { name: "Barbell Bench Press", reps: "4 sets of 8", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Lie on a flat bench, grip the barbell slightly wider than shoulder-width. Lower the bar to your mid-chest, then press it back up." },
           { name: "Incline DB Press", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Set the bench to a 30-45 degree angle. Press dumbbells upward from your chest until your arms are fully extended." },
-          { name: "Overhead Press", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Stand tall with a tight core. Press the barbell from your shoulders straight up overhead until your elbows lock out." },
+          { name: "Overhead Press", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80", instructions: "Stand tall with a tight core. Press the barbell from your shoulders straight up overhead until your elbows lock out." },
           { name: "Tricep Pushdowns", reps: "3 sets of 12", img: "https://images.unsplash.com/photo-1526506114642-902e4d0b04c8?auto=format&fit=crop&w=400&q=80", instructions: "Use a cable machine with a rope or straight bar attachment. Keep your elbows pinned to your sides and push the weight down." }
         ]
       },
@@ -1288,10 +1294,10 @@
           { meal: "Full Day Protocol", food: "Target: 140g Protein, 180g Carbs, 65g Fat. Stay Active.", img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80" }
         ],
         workout: [
-          { name: "Deadlifts", reps: "4 sets of 5", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Stand with the bar over your mid-foot. Hinge at your hips and grip the bar. Keep your back flat and drive through the floor to stand up." },
-          { name: "Lat Pulldowns", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Sit at the machine with a wide grip on the bar. Pull the bar down to your upper chest, squeezing your shoulder blades together." },
+          { name: "Deadlifts", reps: "4 sets of 5", img: "https://images.unsplash.com/photo-1603287681836-b174ce5074c2?auto=format&fit=crop&w=400&q=80", instructions: "Stand with the bar over your mid-foot. Hinge at your hips and grip the bar. Keep your back flat and drive through the floor to stand up." },
+          { name: "Lat Pulldowns", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=400&q=80", instructions: "Sit at the machine with a wide grip on the bar. Pull the bar down to your upper chest, squeezing your shoulder blades together." },
           { name: "Barbell Rows", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Hinge forward at the hips keeping your back straight. Pull the barbell towards your belly button and squeeze your back muscles." },
-          { name: "Bicep Curls", reps: "3 sets of 12", img: "https://images.unsplash.com/photo-1526506114642-902e4d0b04c8?auto=format&fit=crop&w=400&q=80", instructions: "Stand up straight holding dumbbells. Curl the weights up towards your shoulders while keeping your elbows stationary at your sides." }
+          { name: "Bicep Curls", reps: "3 sets of 12", img: "https://images.unsplash.com/photo-1583623025817-d18070de857a?auto=format&fit=crop&w=400&q=80", instructions: "Stand up straight holding dumbbells. Curl the weights up towards your shoulders while keeping your elbows stationary at your sides." }
         ]
       },
       wednesday: {
@@ -1304,10 +1310,10 @@
           { meal: "Full Day Protocol", food: "Target: 160g Protein, 250g Carbs (Leg Day), 50g Fat.", img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80" }
         ],
         workout: [
-          { name: "Barbell Squats", reps: "4 sets of 8", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Rest the barbell on your upper back. Squat down by pushing your hips back and bending your knees. Keep your chest up, then stand back up." },
-          { name: "Leg Press", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Sit in the machine and place your feet shoulder-width apart on the sled. Lower the weight until your knees are at 90 degrees, then push back up." },
+          { name: "Barbell Squats", reps: "4 sets of 8", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80", instructions: "Rest the barbell on your upper back. Squat down by pushing your hips back and bending your knees. Keep your chest up, then stand back up." },
+          { name: "Leg Press", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=400&q=80", instructions: "Sit in the machine and place your feet shoulder-width apart on the sled. Lower the weight until your knees are at 90 degrees, then push back up." },
           { name: "RDLs", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Hold a barbell with a shoulder-width grip. Push your hips back while keeping a slight bend in your knees until you feel a stretch in your hamstrings." },
-          { name: "Calf Raises", reps: "4 sets of 15", img: "https://images.unsplash.com/photo-1526506114642-902e4d0b04c8?auto=format&fit=crop&w=400&q=80", instructions: "Stand on the edge of a step or block. Lower your heels below the edge, then press up onto your toes as high as possible." }
+          { name: "Calf Raises", reps: "4 sets of 15", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Stand on the edge of a step or block. Lower your heels below the edge, then press up onto your toes as high as possible." }
         ]
       },
       thursday: {
@@ -1320,10 +1326,10 @@
           { meal: "Full Day Protocol", food: "Active Rest Day. Low Carb, High Fat. 3L Water.", img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80" }
         ],
         workout: [
-          { name: "Light Cardio", reps: "30 Mins", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Maintain a steady, conversational pace on a treadmill, exercise bike, or elliptical. The goal is to promote blood flow, not fatigue." },
-          { name: "Yoga Routines", reps: "15 Mins", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Perform dynamic stretches and poses like Downward Dog, Cobra, and Child's Pose to improve mobility and relieve muscle tension." },
-          { name: "Core/Abs Work", reps: "10 Mins", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Perform slow, controlled movements like planks, crunches, and leg raises. Focus on squeezing your abdominal muscles." },
-          { name: "Foam Rolling", reps: "10 Mins", img: "https://images.unsplash.com/photo-1526506114642-902e4d0b04c8?auto=format&fit=crop&w=400&q=80", instructions: "Slowly roll over tight muscle groups (quads, lats, calves). Pause and hold on tender spots for 20-30 seconds to release tension." }
+          { name: "Light Cardio", reps: "30 Mins", img: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=400&q=80", instructions: "Maintain a steady, conversational pace on a treadmill, exercise bike, or elliptical. The goal is to promote blood flow, not fatigue." },
+          { name: "Yoga Routines", reps: "15 Mins", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80", instructions: "Perform dynamic stretches and poses like Downward Dog, Cobra, and Child's Pose to improve mobility and relieve muscle tension." },
+          { name: "Core/Abs Work", reps: "10 Mins", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=400&q=80", instructions: "Perform slow, controlled movements like planks, crunches, and leg raises. Focus on squeezing your abdominal muscles." },
+          { name: "Foam Rolling", reps: "10 Mins", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80", instructions: "Slowly roll over tight muscle groups (quads, lats, calves). Pause and hold on tender spots for 20-30 seconds to release tension." }
         ]
       },
       friday: {
@@ -1336,9 +1342,9 @@
           { meal: "Full Day Protocol", food: "Target: 150g Protein, 200g Carbs, 60g Fat.", img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80" }
         ],
         workout: [
-          { name: "Pull-Ups", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Hang from a pull-up bar with a grip wider than shoulder-width. Pull yourself up until your chin clears the bar, then lower slowly." },
-          { name: "DB Bench Press", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Lie flat on a bench holding dumbbells at chest level. Press the weights straight up over your chest, then lower them under control." },
-          { name: "Lateral Raises", reps: "3 sets of 15", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Stand holding light dumbbells at your sides. Raise your arms out to the sides until they are parallel to the floor, then lower slowly." },
+          { name: "Pull-Ups", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=400&q=80", instructions: "Hang from a pull-up bar with a grip wider than shoulder-width. Pull yourself up until your chin clears the bar, then lower slowly." },
+          { name: "DB Bench Press", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Lie flat on a bench holding dumbbells at chest level. Press the weights straight up over your chest, then lower them under control." },
+          { name: "Lateral Raises", reps: "3 sets of 15", img: "https://images.unsplash.com/photo-1583623025817-d18070de857a?auto=format&fit=crop&w=400&q=80", instructions: "Stand holding light dumbbells at your sides. Raise your arms out to the sides until they are parallel to the floor, then lower slowly." },
           { name: "Arm Superset", reps: "3 sets of 12", img: "https://images.unsplash.com/photo-1526506114642-902e4d0b04c8?auto=format&fit=crop&w=400&q=80", instructions: "Perform a set of bicep curls, then immediately perform a set of tricep extensions with no rest in between." }
         ]
       },
@@ -1352,10 +1358,10 @@
           { meal: "Full Day Protocol", food: "Target: 160g Protein, 220g Carbs, 55g Fat.", img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80" }
         ],
         workout: [
-          { name: "Front Squats", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Rest the barbell across the front of your shoulders. Keep your elbows pointed high. Squat down while keeping your torso upright." },
-          { name: "Walking Lunges", reps: "3 sets of 12", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Take a large step forward and lower your hips until both knees form 90-degree angles. Push off the front foot to take the next step." },
-          { name: "Leg Extensions", reps: "3 sets of 15", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Sit in the machine with your shins against the pad. Extend your legs fully to lift the weight, squeeze your quads, and lower slowly." },
-          { name: "Weighted Planks", reps: "3 sets of 60s", img: "https://images.unsplash.com/photo-1526506114642-902e4d0b04c8?auto=format&fit=crop&w=400&q=80", instructions: "Get into a standard forearm plank position. Have a partner place a weight plate on your upper/mid back. Keep your core completely rigid." }
+          { name: "Front Squats", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80", instructions: "Rest the barbell across the front of your shoulders. Keep your elbows pointed high. Squat down while keeping your torso upright." },
+          { name: "Walking Lunges", reps: "3 sets of 12", img: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=400&q=80", instructions: "Take a large step forward and lower your hips until both knees form 90-degree angles. Push off the front foot to take the next step." },
+          { name: "Leg Extensions", reps: "3 sets of 15", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80", instructions: "Sit in the machine with your shins against the pad. Extend your legs fully to lift the weight, squeeze your quads, and lower slowly." },
+          { name: "Weighted Planks", reps: "3 sets of 60s", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=400&q=80", instructions: "Get into a standard forearm plank position. Have a partner place a weight plate on your upper/mid back. Keep your core completely rigid." }
         ]
       },
       sunday: {
@@ -1368,17 +1374,43 @@
           { meal: "Full Day Protocol", food: "Adhere to TDEE Maintenance Calories. Hydrate.", img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=400&q=80" }
         ],
         workout: [
-          { name: "Physical Rest", reps: "Complete Rest", img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80", instructions: "Take a complete break from weightlifting and intense cardio. Allow your central nervous system and muscles time to rebuild and repair." },
-          { name: "Hydration", reps: "3-4 Liters Water", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80", instructions: "Drink plenty of water throughout the day. Aim for at least 3-4 liters to facilitate nutrient transport and muscle recovery." },
-          { name: "Sleep", reps: "8+ Hours", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80", instructions: "Aim for 8+ hours of high-quality sleep. Sleep is when the majority of growth hormone is released and true recovery happens." },
-          { name: "Meal Prep", reps: "For Next Week", img: "https://images.unsplash.com/photo-1526506114642-902e4d0b04c8?auto=format&fit=crop&w=400&q=80", instructions: "Cook and portion out your proteins, carbohydrates, and vegetables for the upcoming week so you stay strictly on your diet protocol." }
+          { name: "Physical Rest", reps: "Complete Rest", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80", instructions: "Take a complete break from weightlifting and intense cardio. Allow your central nervous system and muscles time to rebuild and repair." },
+          { name: "Hydration", reps: "3-4 Liters Water", img: "https://images.unsplash.com/photo-1523362628420-d621535497b7?auto=format&fit=crop&w=400&q=80", instructions: "Drink plenty of water throughout the day. Aim for at least 3-4 liters to facilitate nutrient transport and muscle recovery." },
+          { name: "Sleep", reps: "8+ Hours", img: "https://images.unsplash.com/photo-1511295742362-92c96b124e5e?auto=format&fit=crop&w=400&q=80", instructions: "Aim for 8+ hours of high-quality sleep. Sleep is when the majority of growth hormone is released and true recovery happens." },
+          { name: "Meal Prep", reps: "For Next Week", img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80", instructions: "Cook and portion out your proteins, carbohydrates, and vegetables for the upcoming week so you stay strictly on your diet protocol." }
         ]
       }
     };
 
+    const homeWorkoutData = [
+      { name: "Jump Rope Warmup", reps: "10 Mins", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=400&q=80", instructions: "Use a jump rope to elevate your heart rate. Keep a steady, unbroken pace to warm up the joints." },
+      { name: "Standard Pushups", reps: "4 sets of 15", img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=400&q=80", instructions: "Keep your body in a straight line. Lower your chest to the floor and push back up. Keep core tight." },
+      { name: "Diamond Pushups", reps: "3 sets of 10", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80", instructions: "Place your hands close together under your chest forming a diamond shape. Lowers to chest, highly targets triceps." },
+      { name: "Dumbbell Goblet Squats", reps: "4 sets of 15", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80", instructions: "Hold one dumbbell vertically against your chest. Squat down deeply and push back up through your heels." },
+      { name: "Towel Isometric Rows", reps: "3 sets of 45s", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80", instructions: "Wrap a towel around a sturdy post, railing, or door handle. Pull yourself forward and squeeze your back muscles tightly." }
+    ];
+
     let currentDayId = '';
+    let isHomeMode = false;
     let tempWorkoutState = {};
     let tempDietState = {};
+
+    function setWorkoutMode(mode) {
+      isHomeMode = (mode === 'home');
+      if (isHomeMode) {
+        document.getElementById('btn-home-mode').classList.add('bg-brand-hot', 'text-black', 'shadow-sm');
+        document.getElementById('btn-home-mode').classList.remove('text-zinc-400');
+        document.getElementById('btn-gym-mode').classList.add('text-zinc-400');
+        document.getElementById('btn-gym-mode').classList.remove('bg-brand-hot', 'text-black', 'shadow-sm');
+      } else {
+        document.getElementById('btn-gym-mode').classList.add('bg-brand-hot', 'text-black', 'shadow-sm');
+        document.getElementById('btn-gym-mode').classList.remove('text-zinc-400');
+        document.getElementById('btn-home-mode').classList.add('text-zinc-400');
+        document.getElementById('btn-home-mode').classList.remove('bg-brand-hot', 'text-black', 'shadow-sm');
+      }
+      renderWorkoutSection();
+      updateProgress();
+    }
 
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
@@ -1397,42 +1429,8 @@
       tempWorkoutState = {};
       tempDietState = {};
       
-      // Generate Workout HTML
-      let workoutHtml = '';
-      data.workout.forEach((item, index) => {
-        const isDone = userData.progressData && userData.progressData[`workout_${day}_${index}`] === true;
-        tempWorkoutState[index] = isDone;
-        
-        const cardClass = isDone ? 'border-brand-hot bg-brand-hot/10' : 'border-zinc-700 bg-zinc-900';
-        const btnClass = isDone ? 'bg-brand-hot text-black' : 'bg-zinc-700 text-white';
-        const btnText = isDone ? 'Completed <i class="ti ti-check"></i>' : 'Mark Done';
-
-        workoutHtml += `
-          <div id="ex-${index}" class="flex flex-col gap-0 ${cardClass} p-3 rounded-2xl border transition-colors">
-            <div class="flex gap-4 items-center w-full">
-              <div class="flex gap-4 items-center flex-grow cursor-pointer group" onclick="toggleExerciseDetails(${index})">
-                <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover transition-transform group-hover:scale-105">
-                <div class="flex-grow">
-                  <h4 class="text-white font-semibold flex items-center gap-2">
-                    ${item.name} <i id="ex-chevron-${index}" class="ti ti-chevron-down text-zinc-500 transition-transform duration-300"></i>
-                  </h4>
-                  <span class="text-xs text-zinc-400">${item.reps}</span>
-                </div>
-              </div>
-              <button id="ex-btn-${index}" onclick="toggleExercise(${index})" class="${btnClass} text-xs font-bold px-4 py-2 rounded-lg transition-colors whitespace-nowrap z-10 flex-shrink-0">
-                ${btnText}
-              </button>
-            </div>
-            <div id="ex-details-${index}" class="hidden mt-3 pl-[5.5rem] pr-2 pb-1">
-              <div class="text-xs text-zinc-300 bg-black/40 p-3 rounded-xl border border-zinc-800/50">
-                <span class="text-brand-hot font-bold block mb-1 uppercase tracking-widest text-[10px]"><i class="ti ti-info-circle"></i> Instructions</span>
-                ${item.instructions}
-              </div>
-            </div>
-          </div>
-        `;
-      });
-      document.getElementById('workout-section-content').innerHTML = workoutHtml;
+      // Auto set to gym mode on open
+      setWorkoutMode('gym');
       
       // Generate Diet HTML
       let dietHtml = '';
@@ -1445,8 +1443,9 @@
       document.getElementById('diet-disclaimer').innerHTML = disclaimerText;
 
       data.diet.forEach((item, index) => {
-        const isDone = userData.progressData && userData.progressData[`diet_${day}_${index}`] === true;
-        tempDietState[index] = isDone;
+        const key = `diet_${day}_${index}`;
+        const isDone = tempDietState.hasOwnProperty(key) ? tempDietState[key] : (userData.progressData && userData.progressData[key] === true);
+        tempDietState[key] = isDone;
 
         const cardClass = isDone ? 'border-[#10B981] bg-[#10B981]/10' : 'border-zinc-700 bg-zinc-900';
         const btnClass = isDone ? 'bg-[#10B981] text-black' : 'bg-zinc-700 text-white';
@@ -1458,13 +1457,13 @@
         }
 
         dietHtml += `
-          <div id="diet-${index}" class="flex gap-4 items-center ${cardClass} p-3 rounded-2xl border transition-colors">
+          <div id="diet-${key}" class="flex gap-4 items-center ${cardClass} p-3 rounded-2xl border transition-colors">
             <img src="${item.img}" class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover">
             <div class="flex-grow">
               <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1">${item.meal}</span>
               <h4 class="text-white font-semibold text-sm sm:text-base leading-snug">${foodText}</h4>
             </div>
-            <button id="diet-btn-${index}" onclick="toggleDiet(${index})" class="${btnClass} text-xs font-bold px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+            <button id="diet-btn-${key}" onclick="toggleDiet('${key}')" class="${btnClass} text-xs font-bold px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
               ${btnText}
             </button>
           </div>
@@ -1476,18 +1475,61 @@
       document.getElementById('day-modal').classList.remove('hidden');
     }
 
+    function renderWorkoutSection() {
+      const day = currentDayId;
+      const workoutData = isHomeMode ? homeWorkoutData : planData[day].workout;
+      const modePrefix = isHomeMode ? 'home_' : '';
+      
+      let workoutHtml = '';
+      workoutData.forEach((item, index) => {
+        const key = `workout_${modePrefix}${day}_${index}`;
+        const isDone = tempWorkoutState.hasOwnProperty(key) ? tempWorkoutState[key] : (userData.progressData && userData.progressData[key] === true);
+        tempWorkoutState[key] = isDone; 
+        
+        const cardClass = isDone ? 'border-brand-hot bg-brand-hot/10' : 'border-zinc-700 bg-zinc-900';
+        const btnClass = isDone ? 'bg-brand-hot text-black' : 'bg-zinc-700 text-white';
+        const btnText = isDone ? 'Completed <i class="ti ti-check"></i>' : 'Mark Done';
+
+        workoutHtml += `
+          <div id="ex-${key}" class="flex flex-col gap-0 ${cardClass} p-3 rounded-2xl border transition-colors">
+            <div class="flex gap-4 items-center w-full">
+              <div class="flex gap-4 items-center flex-grow cursor-pointer group" onclick="toggleExerciseDetails('${key}')">
+                <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover transition-transform group-hover:scale-105">
+                <div class="flex-grow">
+                  <h4 class="text-white font-semibold flex items-center gap-2 text-sm sm:text-base">
+                    ${item.name} <i id="ex-chevron-${key}" class="ti ti-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                  </h4>
+                  <span class="text-xs text-zinc-400">${item.reps}</span>
+                </div>
+              </div>
+              <button id="ex-btn-${key}" onclick="toggleExercise('${key}')" class="${btnClass} text-xs font-bold px-4 py-2 rounded-lg transition-colors whitespace-nowrap z-10 flex-shrink-0">
+                ${btnText}
+              </button>
+            </div>
+            <div id="ex-details-${key}" class="hidden mt-3 pl-[5.5rem] pr-2 pb-1">
+              <div class="text-xs text-zinc-300 bg-black/40 p-3 rounded-xl border border-zinc-800/50">
+                <span class="text-brand-hot font-bold block mb-1 uppercase tracking-widest text-[10px]"><i class="ti ti-info-circle"></i> Instructions</span>
+                ${item.instructions}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById('workout-section-content').innerHTML = workoutHtml;
+    }
+
     function openTodaysPlan() {
       const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
       const today = days[new Date().getDay()];
       openDayModal(today);
     }
 
-    function toggleExercise(index) {
-      const isDone = !tempWorkoutState[index];
-      tempWorkoutState[index] = isDone;
+    function toggleExercise(key) {
+      const isDone = !tempWorkoutState[key];
+      tempWorkoutState[key] = isDone;
       
-      const card = document.getElementById('ex-' + index);
-      const btn = document.getElementById('ex-btn-' + index);
+      const card = document.getElementById('ex-' + key);
+      const btn = document.getElementById('ex-btn-' + key);
       
       if (isDone) {
         card.classList.add('border-brand-hot', 'bg-brand-hot/10');
@@ -1505,9 +1547,9 @@
       updateProgress();
     }
 
-    function toggleExerciseDetails(index) {
-      const detailsDiv = document.getElementById(`ex-details-${index}`);
-      const chevron = document.getElementById(`ex-chevron-${index}`);
+    function toggleExerciseDetails(key) {
+      const detailsDiv = document.getElementById(`ex-details-${key}`);
+      const chevron = document.getElementById(`ex-chevron-${key}`);
       
       if (detailsDiv.classList.contains('hidden')) {
         detailsDiv.classList.remove('hidden');
@@ -1518,12 +1560,12 @@
       }
     }
 
-    function toggleDiet(index) {
-      const isDone = !tempDietState[index];
-      tempDietState[index] = isDone;
+    function toggleDiet(key) {
+      const isDone = !tempDietState[key];
+      tempDietState[key] = isDone;
 
-      const card = document.getElementById('diet-' + index);
-      const btn = document.getElementById('diet-btn-' + index);
+      const card = document.getElementById('diet-' + key);
+      const btn = document.getElementById('diet-btn-' + key);
       
       if (isDone) {
         card.classList.add('border-[#10B981]', 'bg-[#10B981]/10');
@@ -1542,15 +1584,22 @@
     }
 
     function updateProgress() {
-      const totalW = planData[currentDayId].workout.length;
-      const compW = Object.values(tempWorkoutState).filter(Boolean).length;
+      const day = currentDayId;
+      const modePrefix = isHomeMode ? 'home_' : '';
+      
+      const workoutData = isHomeMode ? homeWorkoutData : planData[day].workout;
+      const totalW = workoutData.length;
+      
+      let compW = 0;
+      workoutData.forEach((_, index) => { if(tempWorkoutState[`workout_${modePrefix}${day}_${index}`]) compW++; });
       const wAcc = Math.round((compW / totalW) * 100);
       
       document.getElementById('workout-progress').style.width = wAcc + '%';
       document.getElementById('workout-accuracy').innerText = wAcc + '% Accuracy';
 
-      const totalD = planData[currentDayId].diet.length;
-      const compD = Object.values(tempDietState).filter(Boolean).length;
+      const totalD = planData[day].diet.length;
+      let compD = 0;
+      planData[day].diet.forEach((_, index) => { if(tempDietState[`diet_${day}_${index}`]) compD++; });
       const dAcc = Math.round((compD / totalD) * 100);
 
       document.getElementById('diet-progress').style.width = dAcc + '%';
@@ -1560,8 +1609,8 @@
     async function syncToProfile() {
       if(!userData.progressData) userData.progressData = {};
       
-      Object.keys(tempWorkoutState).forEach(index => userData.progressData[`workout_${currentDayId}_${index}`] = tempWorkoutState[index]);
-      Object.keys(tempDietState).forEach(index => userData.progressData[`diet_${currentDayId}_${index}`] = tempDietState[index]);
+      Object.keys(tempWorkoutState).forEach(key => userData.progressData[key] = tempWorkoutState[key]);
+      Object.keys(tempDietState).forEach(key => userData.progressData[key] = tempDietState[key]);
       
       sessionStorage.setItem('ironForgeUser', JSON.stringify(userData));
       
