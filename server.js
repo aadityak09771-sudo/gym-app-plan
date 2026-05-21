@@ -11,8 +11,7 @@ app.use(express.json()); // JSON data accept karne ke liye
 const MONGO_URI = 'mongodb+srv://aadityak09771_db_user:aditya0987@cluster0.pkswoe4.mongodb.net/ironforge?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGO_URI, {
-  serverSelectionTimeoutMS: 5000, // Timeout sooner if no connection
-  family: 4 // Force IPv4 (Bypasses Windows Node.js DNS bugs)
+  serverSelectionTimeoutMS: 5000 // Timeout sooner if no connection
 })
   .then(() => console.log("🔥 MongoDB Connected Successfully!"))
   .catch((err) => {
