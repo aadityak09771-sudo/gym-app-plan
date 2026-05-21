@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IronForge Fitness | Local Gym</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <!-- PWA Metadata & Chart.js -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0a0a0a">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              hot: '#D4AF37',     /* Royal Gold / CTA */
+              trust: '#10B981',   /* Success */
+              dark: '#0a0a0a',    /* Pure Royal Black */
+              panel: '#141414',   /* Deep Charcoal */
+              text: '#f4f4f5'     /* Zinc 100 */
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Smooth Accordion Transitions */
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+    }
+    .faq-content.open {
+      max-height: 500px;
+      transition: max-height 0.4s cubic-bezier(1, 0, 1, 0);
+    }
+    /* Hero Gradient Overlay */
+    .hero-overlay {
+      background: linear-gradient(to right, rgba(9, 9, 11, 0.95) 0%, rgba(9, 9, 11, 0.7) 100%);
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-brand-text font-sans antialiased pb-24">
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 bg-brand-dark/90 backdrop-blur-md border-b border-zinc-800 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2 font-black text-xl tracking-tight uppercase">
+        <i class="ti ti-barbell text-brand-hot text-2xl"></i>
+        IronForge <span class="text-brand-hot">Fit</span>
+      </div>
+      <div class="hidden md:flex gap-6 text-sm font-medium text-zinc-300">
+        <a href="#programs" class="hover:text-white transition-colors">Programs</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+        <a href="#trainers" class="hover:text-white transition-colors">Trainers</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        <a href="#user-dashboard" id="nav-dashboard-link" class="hover:text-brand-hot transition-colors hidden font-bold">Dashboard</a>
+      </div>
+      <a href="#cta" class="hidden md:inline-flex bg-brand-hot hover:bg-yellow-600 text-black px-5 py-2 rounded-full text-sm font-bold transition-transform hover:scale-105">
+        Claim Free Trial
+      </a>
+    </div>
+  </nav>
+
+  <!-- 1. Hero — The Hook -->
+  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-[url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=1920')] bg-cover bg-center">
+    <div class="absolute inset-0 hero-overlay"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/80 border border-zinc-700 text-xs font-semibold text-zinc-300 mb-6">
+          <i class="ti ti-map-pin text-brand-hot"></i> India's Premier Fitness Destination
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-4">
+          Awaken Your Inner Strength.<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-brand-hot">Sankalp Se Siddhi. Pure Iron.</span>
+        </h1>
+        <p class="text-lg text-zinc-400 mb-8 max-w-xl">
+          Join a community built on results. Professional imported machines, heavy dumbbells, and an atmosphere inspired by the eternal strength of Bajrangbali.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#cta" class="bg-brand-hot hover:bg-yellow-600 text-black text-center px-8 py-4 rounded-full font-bold text-lg transition-transform hover:scale-105 shadow-lg shadow-yellow-500/20 flex items-center justify-center gap-2">
+            <i class="ti ti-flame"></i> Claim Your Free Trial
+          </a>
+          <a href="#facilities" class="bg-zinc-800 hover:bg-zinc-700 text-white text-center px-8 py-4 rounded-full font-bold text-lg transition-colors border border-zinc-700 flex items-center justify-center gap-2">
+            <i class="ti ti-player-play"></i> View Facility Tour
+          </a>
+        </div>
+        <div class="mt-6 flex items-center gap-3 text-sm text-zinc-400 font-medium">
+          <div class="flex text-yellow-500 text-base">
+            <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
+          </div>
+          4.9/5 Average on Google Reviews
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Trust Bar -->
+  <section class="bg-brand-panel border-y border-zinc-800 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-zinc-800">
+        <div>
+          <div class="text-3xl font-black text-white mb-1">500+</div>
+          <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Active Members</div>
+        </div>
+        <div>
+          <div class="text-3xl font-black text-white mb-1">24/7</div>
+          <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Facility Access</div>
+        </div>
+        <div>
+          <div class="text-3xl font-black text-white mb-1">12+</div>
+          <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Certified Coaches</div>
+        </div>
+        <div>
+          <div class="text-3xl font-black text-white mb-1">10yrs</div>
+          <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Established</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Dashboard Section -->
+  <section id="user-dashboard" class="py-20 bg-brand-dark hidden border-b border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-brand-panel border border-brand-hot/30 rounded-3xl p-8 shadow-2xl shadow-yellow-900/10">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 pb-8 border-b border-zinc-800 gap-6">
+          <div>
+            <h2 class="text-3xl font-extrabold text-white mb-2">Welcome back, <span id="dash-name" class="text-brand-hot">Warrior</span>!</h2>
+            <p class="text-zinc-400">Your IronForge journey started on <span id="dash-start-date" class="text-white font-bold"></span>.</p>
+            <button onclick="logoutUser()" class="mt-3 text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-5 py-2 rounded-lg font-bold transition-colors shadow-md border border-zinc-700"><i class="ti ti-logout"></i> Secure Log Out</button>
+          </div>
+          <div class="bg-brand-dark p-4 rounded-2xl border border-zinc-800 text-center min-w-[200px] sm:min-w-[250px]">
+            <div class="text-xs text-brand-hot uppercase tracking-widest font-bold mb-1">Iron Aura Level</div>
+            <div class="text-4xl font-black text-white mb-1" id="dash-power-level">0</div>
+            <div class="mb-3" id="dash-rank"><span class="text-[#cd7f32] font-black uppercase tracking-widest text-lg">Bronze</span></div>
+            <div class="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+              <div id="dash-tier-progress" class="bg-brand-hot h-full transition-all duration-1000" style="width: 0%"></div>
+            </div>
+            <div id="dash-next-tier" class="text-[10px] text-zinc-500 mt-2 font-semibold tracking-wider uppercase">0 pts to next tier</div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center justify-center text-center">
+            <i class="ti ti-calendar-stats text-4xl text-zinc-500 mb-3"></i>
+            <div class="text-3xl font-black text-white mb-1"><span id="dash-days-active">0</span></div>
+            <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Days Active</div>
+          </div>
+          
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center justify-center text-center cursor-pointer hover:border-brand-hot transition-colors" onclick="updateCurrentWeight()">
+            <i class="ti ti-scale text-4xl text-brand-hot mb-3"></i>
+            <div class="text-3xl font-black text-white mb-1"><span id="dash-current-wt">0</span> <span class="text-lg text-zinc-500">kg</span></div>
+            <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold flex items-center gap-1">Current Weight <i class="ti ti-edit"></i></div>
+          </div>
+          
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center justify-center text-center">
+            <i class="ti ti-target text-4xl text-brand-trust mb-3"></i>
+            <div class="text-3xl font-black text-white mb-1"><span id="dash-target-wt">0</span> <span class="text-lg text-zinc-500">kg</span></div>
+            <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Target Weight</div>
+          </div>
+        </div>
+
+        <!-- New Feature Extensions -->
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Aura Tiers Explained -->
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800">
+            <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="ti ti-trophy text-brand-hot"></i> Aura Tiers Explained</h3>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-900/50 border border-zinc-800/50"><span class="text-[#cd7f32] font-black tracking-widest uppercase">Bronze</span><span class="text-zinc-400 font-mono text-xs">0 - 100 PTS</span></div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-900/50 border border-zinc-800/50"><span class="text-[#c0c0c0] font-black tracking-widest uppercase">Silver</span><span class="text-zinc-400 font-mono text-xs">101 - 300 PTS</span></div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-900/50 border border-zinc-800/50"><span class="text-[#ffd700] font-black tracking-widest uppercase">Gold</span><span class="text-zinc-400 font-mono text-xs">301 - 600 PTS</span></div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-900/50 border border-zinc-800/50"><span class="text-[#b9f2ff] font-black tracking-widest uppercase">Diamond</span><span class="text-zinc-400 font-mono text-xs">601+ PTS</span></div>
+            </div>
+            <p class="text-xs text-zinc-500 mt-4 leading-relaxed"><i class="ti ti-info-circle"></i> Earn points by completing daily workouts <span class="text-brand-trust">(+10 pts)</span> and adhering to your diet protocols <span class="text-brand-trust">(+5 pts)</span>.</p>
+          </div>
+
+          <!-- Goal Progress & Quick Actions -->
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="ti ti-target text-brand-hot"></i> Bodyweight Goal Progress</h3>
+              <div class="mb-2 flex justify-between text-xs font-bold text-zinc-400 uppercase tracking-widest">
+                <span>Start: <span id="dash-start-wt-display" class="text-white">0</span>kg</span>
+                <span>Target: <span id="dash-target-wt-display" class="text-white">0</span>kg</span>
+              </div>
+              <div class="w-full bg-zinc-800 h-3 rounded-full overflow-hidden mb-2">
+                <div id="dash-wt-progress" class="bg-brand-trust h-full transition-all duration-1000 relative" style="width: 0%">
+                  <div class="absolute inset-0 bg-white/20 w-full h-full animate-pulse"></div>
+                </div>
+              </div>
+              <p class="text-xs text-zinc-500 mb-6">Keep updating your current weight to track your journey toward your target.</p>
+            </div>
+            
+            <button onclick="openTodaysPlan()" class="w-full bg-brand-hot hover:bg-yellow-600 text-black font-extrabold py-4 rounded-xl transition-transform hover:scale-[1.02] shadow-lg shadow-yellow-900/20 flex items-center justify-center gap-2 mt-auto text-lg uppercase tracking-wider">
+              <i class="ti ti-bolt text-2xl"></i> Jump to Today's Plan
+            </button>
+          </div>
+        </div>
+
+        <!-- Precision Nutrition & Timeline Calculator -->
+        <div class="mt-6 bg-brand-dark p-6 md:p-8 rounded-2xl border border-zinc-800 flex flex-col lg:flex-row justify-between items-center gap-8">
+          <div class="lg:w-1/3 text-center lg:text-left">
+            <h3 class="text-xl font-bold mb-2 flex items-center justify-center lg:justify-start gap-2"><i class="ti ti-calculator text-brand-hot"></i> Nutrition Blueprint</h3>
+            <p class="text-sm text-zinc-400 mb-4" id="dash-goal-phase">Analyzing your body goals...</p>
+            <div class="inline-block bg-zinc-900 px-4 py-2 rounded-xl border border-zinc-800 text-center">
+               <div class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-1">Est. Time to Goal</div>
+               <div class="text-3xl font-black text-brand-trust" id="dash-eta">0 <span class="text-sm text-zinc-500 font-normal">days</span></div>
+            </div>
+          </div>
+          
+          <div class="lg:w-2/3 w-full flex flex-col sm:flex-row gap-4">
+            <div class="flex-1 bg-zinc-900 p-6 rounded-xl border border-zinc-800 text-center flex flex-col justify-center">
+              <div class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-1">Daily Intake Goal</div>
+              <div class="text-4xl font-black text-white" id="dash-calories">0 <span class="text-base text-zinc-500 font-normal">kcal</span></div>
+            </div>
+            <div class="flex-1 flex flex-col gap-2 justify-center">
+              <div class="bg-zinc-900 p-3 rounded-lg border border-zinc-800 flex justify-between items-center"><span class="text-[10px] text-zinc-500 uppercase tracking-widest">Protein (Muscle)</span><span class="text-sm font-bold text-white" id="dash-protein">0g</span></div>
+              <div class="bg-zinc-900 p-3 rounded-lg border border-zinc-800 flex justify-between items-center"><span class="text-[10px] text-zinc-500 uppercase tracking-widest">Carbs (Energy)</span><span class="text-sm font-bold text-white" id="dash-carbs">0g</span></div>
+              <div class="bg-zinc-900 p-3 rounded-lg border border-zinc-800 flex justify-between items-center"><span class="text-[10px] text-zinc-500 uppercase tracking-widest">Fats (Hormones)</span><span class="text-sm font-bold text-white" id="dash-fats">0g</span></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Weight History Chart -->
+        <div class="mt-6 bg-brand-dark p-6 rounded-2xl border border-zinc-800">
+          <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="ti ti-chart-line text-brand-hot"></i> Weight Progression History</h3>
+          <div class="w-full h-64 relative">
+            <canvas id="weightChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Global Leaderboard (Public Tier Achievements) -->
+        <div class="mt-8 bg-brand-dark p-6 rounded-2xl border border-zinc-800">
+          <h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="ti ti-globe text-brand-hot"></i> Global Aura Leaderboard</h3>
+          <p class="text-xs text-zinc-500 mb-6 border-b border-zinc-800 pb-4">Check how you rank against other warriors. Progress details are secure—only Tier Achievements are public.</p>
+          <div id="leaderboard-content" class="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Why Us — Benefits -->
+  <section class="py-20 bg-brand-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-4">Why Choose IronForge?</h2>
+        <p class="text-zinc-400 max-w-2xl mx-auto">We've eliminated everything that makes traditional gyms intimidating, and kept only what gets you results.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors">
+          <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-clock"></i></div>
+          <h3 class="text-xl font-bold mb-2">24/7 Access</h3>
+          <p class="text-sm text-zinc-400">Train on your own schedule. Our facility is open and secure 24 hours a day, 365 days a year.</p>
+        </div>
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors">
+          <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-barbell"></i></div>
+          <h3 class="text-xl font-bold mb-2">Modern Equipment</h3>
+          <p class="text-sm text-zinc-400">From premium Olympic lifting platforms to advanced isolated cardio zones, we have it all.</p>
+        </div>
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors">
+          <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-heart"></i></div>
+          <h3 class="text-xl font-bold mb-2">No-Judgement Vibe</h3>
+          <p class="text-sm text-zinc-400">A supportive culture where beginners and pro-athletes train side-by-side with mutual respect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Features: Diet & Exercise -->
+  <section class="py-20 bg-brand-panel border-y border-zinc-800 relative overflow-hidden">
+    <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-hot/5 blur-[100px] rounded-full z-0"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-4 text-brand-hot">Premium Client Protocols</h2>
+        <p class="text-zinc-400 max-w-2xl mx-auto">More than just a gym floor. We provide complete lifestyle engineering with customized plans.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-brand-dark p-8 rounded-2xl border border-zinc-800 hover:border-brand-hot/50 transition-colors shadow-lg">
+          <div class="w-14 h-14 bg-brand-hot/10 rounded-xl flex items-center justify-center mb-6 text-brand-hot text-3xl"><i class="ti ti-salad"></i></div>
+          <h3 class="text-2xl font-bold mb-3">Custom Diet & Macro Plans</h3>
+          <p class="text-zinc-400 mb-4">Get a 100% personalized nutritional blueprint. Whether you prefer pure Veg, Eggetarian, or Non-Veg, we calculate your precise macros to ensure maximum muscle gain and fat loss without starving.</p>
+          <ul class="space-y-2 text-sm text-zinc-300">
+            <li class="flex items-center gap-2"><i class="ti ti-check text-brand-hot"></i> Weekly dietary adjustments</li>
+            <li class="flex items-center gap-2"><i class="ti ti-check text-brand-hot"></i> Indian cuisine integrated (Desi diets)</li>
+          </ul>
+        </div>
+        <div class="bg-brand-dark p-8 rounded-2xl border border-zinc-800 hover:border-brand-hot/50 transition-colors shadow-lg">
+          <div class="w-14 h-14 bg-brand-hot/10 rounded-xl flex items-center justify-center mb-6 text-brand-hot text-3xl"><i class="ti ti-clipboard-list"></i></div>
+          <h3 class="text-2xl font-bold mb-3">Tailored Exercise Routines</h3>
+          <p class="text-zinc-400 mb-4">Never guess what to do next. You receive a structured, day-by-day workout split tailored to your exact body type, experience level, and end goal.</p>
+          <ul class="space-y-2 text-sm text-zinc-300">
+            <li class="flex items-center gap-2"><i class="ti ti-check text-brand-hot"></i> Form correction and log tracking</li>
+            <li class="flex items-center gap-2"><i class="ti ti-check text-brand-hot"></i> Monthly progressive overload cycles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Day-wise Global Workout & Diet Plan -->
+  <section id="plan" class="py-20 bg-brand-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-4 text-brand-hot">The 7-Day Iron Blueprint</h2>
+        <p class="text-zinc-400 max-w-2xl mx-auto">A globally proven, day-wise schedule for guaranteed results. Follow this structured exercise and diet protocol to maximize your gains.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        
+        <!-- Day 1 -->
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('monday')">
+          <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
+            Monday 
+            <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Push</span>
+          </h3>
+          <p class="text-xs font-semibold text-zinc-400 mb-3 border-b border-zinc-800 pb-3">Chest, Shoulders & Triceps</p>
+          <div class="mb-4 flex-grow">
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mb-1">Workout</span>
+            <ul class="text-sm text-zinc-300 space-y-1">
+              <li>• Barbell Bench Press (4x8)</li>
+              <li>• Incline DB Press (3x10)</li>
+              <li>• Overhead Press (3x10)</li>
+              <li>• Tricep Pushdowns (3x12)</li>
+            </ul>
+          </div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-zinc-800 mt-auto">
+            <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1"><i class="ti ti-salad"></i> Diet Protocol</span>
+            <span class="text-xs text-zinc-400 leading-tight block">High Carb & Protein. Pre: Oats. Post: Chicken/Paneer.</span>
+          </div>
+          <button class="mt-4 w-full bg-brand-hot hover:bg-yellow-600 text-black text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 group-hover:scale-[1.02]">
+            Open Full Day Plan <i class="ti ti-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('tuesday')">
+          <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
+            Tuesday 
+            <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Pull</span>
+          </h3>
+          <p class="text-xs font-semibold text-zinc-400 mb-3 border-b border-zinc-800 pb-3">Back, Rear Delts & Biceps</p>
+          <div class="mb-4 flex-grow">
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mb-1">Workout</span>
+            <ul class="text-sm text-zinc-300 space-y-1">
+              <li>• Deadlifts (4x5)</li>
+              <li>• Lat Pulldowns (3x10)</li>
+              <li>• Barbell Rows (3x10)</li>
+              <li>• Bicep Curls (3x12)</li>
+            </ul>
+          </div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-zinc-800 mt-auto">
+            <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1"><i class="ti ti-salad"></i> Diet Protocol</span>
+            <span class="text-xs text-zinc-400 leading-tight block">Moderate Carb. Pre: Banana. Post: Fish/Soya chunks.</span>
+          </div>
+          <button class="mt-4 w-full bg-brand-hot hover:bg-yellow-600 text-black text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 group-hover:scale-[1.02]">
+            Open Full Day Plan <i class="ti ti-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('wednesday')">
+          <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
+            Wednesday 
+            <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Legs</span>
+          </h3>
+          <p class="text-xs font-semibold text-zinc-400 mb-3 border-b border-zinc-800 pb-3">Quads, Hamstrings & Calves</p>
+          <div class="mb-4 flex-grow">
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mb-1">Workout</span>
+            <ul class="text-sm text-zinc-300 space-y-1">
+              <li>• Barbell Squats (4x8)</li>
+              <li>• Leg Press (3x10)</li>
+              <li>• RDLs (3x10)</li>
+              <li>• Calf Raises (4x15)</li>
+            </ul>
+          </div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-zinc-800 mt-auto">
+            <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1"><i class="ti ti-salad"></i> Diet Protocol</span>
+            <span class="text-xs text-zinc-400 leading-tight block">Highest Carb Day. Sweet potatoes, Lentils, Rice.</span>
+          </div>
+          <button class="mt-4 w-full bg-brand-hot hover:bg-yellow-600 text-black text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 group-hover:scale-[1.02]">
+            Open Full Day Plan <i class="ti ti-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('thursday')">
+          <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
+            Thursday 
+            <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Cardio</span>
+          </h3>
+          <p class="text-xs font-semibold text-zinc-400 mb-3 border-b border-zinc-800 pb-3">Active Rest & Mobility</p>
+          <div class="mb-4 flex-grow">
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mb-1">Workout</span>
+            <ul class="text-sm text-zinc-300 space-y-1">
+              <li>• 30 Min Light Cardio</li>
+              <li>• Yoga Routines</li>
+              <li>• Core/Abs Work</li>
+              <li>• Foam Rolling</li>
+            </ul>
+          </div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-zinc-800 mt-auto">
+            <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1"><i class="ti ti-salad"></i> Diet Protocol</span>
+            <span class="text-xs text-zinc-400 leading-tight block">Low Carb / High Fat. Avocado, nuts, green salads.</span>
+          </div>
+          <button class="mt-4 w-full bg-brand-hot hover:bg-yellow-600 text-black text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 group-hover:scale-[1.02]">
+            Open Full Day Plan <i class="ti ti-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('friday')">
+          <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
+            Friday 
+            <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Upper</span>
+          </h3>
+          <p class="text-xs font-semibold text-zinc-400 mb-3 border-b border-zinc-800 pb-3">Complete Upper Body</p>
+          <div class="mb-4 flex-grow">
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mb-1">Workout</span>
+            <ul class="text-sm text-zinc-300 space-y-1">
+              <li>• Pull-Ups (3x10)</li>
+              <li>• DB Bench Press (3x10)</li>
+              <li>• Lateral Raises (3x15)</li>
+              <li>• Arm Superset (3x12)</li>
+            </ul>
+          </div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-zinc-800 mt-auto">
+            <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1"><i class="ti ti-salad"></i> Diet Protocol</span>
+            <span class="text-xs text-zinc-400 leading-tight block">Moderate Carb. Greek yogurt, lean proteins, veggies.</span>
+          </div>
+          <button class="mt-4 w-full bg-brand-hot hover:bg-yellow-600 text-black text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 group-hover:scale-[1.02]">
+            Open Full Day Plan <i class="ti ti-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('saturday')">
+          <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
+            Saturday 
+            <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Lower</span>
+          </h3>
+          <p class="text-xs font-semibold text-zinc-400 mb-3 border-b border-zinc-800 pb-3">Hypertrophy Legs & Core</p>
+          <div class="mb-4 flex-grow">
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mb-1">Workout</span>
+            <ul class="text-sm text-zinc-300 space-y-1">
+              <li>• Front Squats (3x10)</li>
+              <li>• Walking Lunges (3x12)</li>
+              <li>• Leg Extensions (3x15)</li>
+              <li>• Weighted Planks (3x60s)</li>
+            </ul>
+          </div>
+          <div class="bg-brand-dark p-3 rounded-xl border border-zinc-800 mt-auto">
+            <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1"><i class="ti ti-salad"></i> Diet Protocol</span>
+            <span class="text-xs text-zinc-400 leading-tight block">High Carb & Protein. Big shake post-workout.</span>
+          </div>
+          <button class="mt-4 w-full bg-brand-hot hover:bg-yellow-600 text-black text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 group-hover:scale-[1.02]">
+            Open Full Day Plan <i class="ti ti-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full md:col-span-2 lg:col-span-3 xl:col-span-2 relative overflow-hidden cursor-pointer group" onclick="openDayModal('sunday')">
+          <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-brand-hot/10 rounded-full blur-2xl"></div>
+          <div class="relative z-10 flex flex-col h-full">
+            <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
+              Sunday 
+              <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Recovery</span>
+            </h3>
+            <p class="text-xs font-semibold text-zinc-400 mb-3 border-b border-zinc-800 pb-3">Total Rest & Meal Prep</p>
+            <div class="mb-4 flex-grow">
+              <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mb-1">Workout</span>
+              <ul class="text-sm text-zinc-300 space-y-1">
+                <li>• Complete Physical Rest</li>
+                <li>• Hydration (3-4 Liters)</li>
+                <li>• Sleep Recovery (8+ Hrs)</li>
+                <li>• Weekly Meal Prep</li>
+              </ul>
+            </div>
+            <div class="bg-brand-dark p-3 rounded-xl border border-zinc-800 mt-auto">
+              <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1"><i class="ti ti-salad"></i> Diet Protocol</span>
+              <span class="text-xs text-zinc-400 leading-tight block">Maintenance Calories. Cheat Meal allowed. Keep protein high.</span>
+            </div>
+            <button class="mt-4 w-full bg-brand-hot hover:bg-yellow-600 text-black text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 group-hover:scale-[1.02]">
+              Open Full Day Plan <i class="ti ti-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Programs / Classes -->
+  <section id="programs" class="py-20 bg-brand-panel border-y border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <h2 class="text-3xl font-extrabold mb-4">Programs for Every Goal</h2>
+          <p class="text-zinc-400 max-w-xl">Find the perfect structure for your fitness journey. Expert-led classes and independent regimens.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+          <img src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-5 w-full">
+            <h3 class="text-lg font-bold text-white mb-1">Strength & Hypertrophy</h3>
+            <p class="text-sm text-zinc-300 mb-3 line-clamp-1">Build muscle and pure power.</p>
+            <span class="text-xs font-bold text-brand-hot group-hover:text-white transition-colors uppercase tracking-wider">Book Session &rarr;</span>
+          </div>
+        </a>
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+          <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-5 w-full">
+            <h3 class="text-lg font-bold text-white mb-1">HIIT & Cardio</h3>
+            <p class="text-sm text-zinc-300 mb-3 line-clamp-1">Maximum fat burn in 45 mins.</p>
+            <span class="text-xs font-bold text-brand-hot group-hover:text-white transition-colors uppercase tracking-wider">Book Session &rarr;</span>
+          </div>
+        </a>
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+          <img src="https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-5 w-full">
+            <h3 class="text-lg font-bold text-white mb-1">1-on-1 Personal Training</h3>
+            <p class="text-sm text-zinc-300 mb-3 line-clamp-1">Tailored blueprints for success.</p>
+            <span class="text-xs font-bold text-brand-hot group-hover:text-white transition-colors uppercase tracking-wider">Learn More &rarr;</span>
+          </div>
+        </a>
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+          <img src="https://images.pexels.com/photos/3775191/pexels-photo-3775191.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-5 w-full">
+            <h3 class="text-lg font-bold text-white mb-1">Yoga & Recovery</h3>
+            <p class="text-sm text-zinc-300 mb-3 line-clamp-1">Mobility, flexibility, and core.</p>
+            <span class="text-xs font-bold text-brand-hot group-hover:text-white transition-colors uppercase tracking-wider">Learn More &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Membership Pricing -->
+  <section id="pricing" class="py-20 bg-brand-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-extrabold mb-4">Transparent Pricing</h2>
+        <p class="text-zinc-400 max-w-2xl mx-auto">No hidden enrollment fees. No complicated cancellation policies. Choose your tier.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
+        <!-- Basic -->
+        <div class="bg-brand-panel p-8 rounded-3xl border border-zinc-800">
+          <h3 class="text-xl font-bold mb-2">Basic Floor</h3>
+          <p class="text-zinc-400 text-sm mb-6">Essential access for independent lifters.</p>
+          <div class="mb-6"><span class="text-4xl font-black">₹1,499</span><span class="text-zinc-500">/mo</span></div>
+          <ul class="space-y-4 text-sm mb-8 text-zinc-300">
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> 24/7 Gym Floor Access</li>
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> Locker Room Access</li>
+            <li class="flex items-center gap-3 text-zinc-600"><i class="ti ti-x text-lg"></i> Group Classes</li>
+            <li class="flex items-center gap-3 text-zinc-600"><i class="ti ti-x text-lg"></i> Personal Coaching</li>
+          </ul>
+          <a href="#cta" class="block w-full text-center py-3 rounded-xl border border-zinc-600 hover:bg-zinc-800 font-semibold transition-colors">Start Basic</a>
+        </div>
+        
+        <!-- Standard (Highlighted Anchor) -->
+        <div class="bg-gradient-to-b from-brand-hot/10 to-brand-panel p-8 rounded-3xl border border-brand-hot relative transform md:-translate-y-4 shadow-2xl shadow-yellow-900/20">
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-hot text-black text-xs font-bold uppercase tracking-widest px-4 py-1 rounded-full">Most Popular</div>
+          <h3 class="text-xl font-bold mb-2">Standard Access</h3>
+          <p class="text-zinc-400 text-sm mb-6">The complete gym and class experience.</p>
+          <div class="mb-6"><span class="text-4xl font-black">₹2,499</span><span class="text-zinc-500">/mo</span></div>
+          <ul class="space-y-4 text-sm mb-8 text-zinc-200">
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> 24/7 Gym Floor Access</li>
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> Locker Room Access</li>
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> Unlimited Group Classes</li>
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> Monthly Body Scans</li>
+          </ul>
+          <a href="#cta" class="block w-full text-center py-3 rounded-xl bg-brand-hot hover:bg-yellow-600 text-black font-bold transition-colors">Start Standard</a>
+        </div>
+
+        <!-- Premium -->
+        <div class="bg-brand-panel p-8 rounded-3xl border border-zinc-800">
+          <h3 class="text-xl font-bold mb-2">Premium Coaching</h3>
+          <p class="text-zinc-400 text-sm mb-6">For those wanting guaranteed results fast.</p>
+          <div class="mb-6"><span class="text-4xl font-black">₹5,999</span><span class="text-zinc-500">/mo</span></div>
+          <ul class="space-y-4 text-sm mb-8 text-zinc-300">
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> All Standard Features</li>
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> 4x 1-on-1 PT Sessions/mo</li>
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> Custom Macro Diet Plan</li>
+            <li class="flex items-center gap-3"><i class="ti ti-check text-brand-trust text-lg"></i> Dedicated Towel Service</li>
+          </ul>
+          <a href="#cta" class="block w-full text-center py-3 rounded-xl border border-zinc-600 hover:bg-zinc-800 font-semibold transition-colors">Start Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Transformations & Results (Proof Engine) -->
+  <section class="py-20 bg-brand-panel border-y border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-4">Real Local Results</h2>
+        <p class="text-zinc-400 max-w-2xl mx-auto">Don't take our word for it. Look at what our members have achieved within 90 days.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Review 1 -->
+        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50">
+          <div class="flex text-yellow-500 text-sm mb-4">
+            <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
+          </div>
+          <p class="text-sm text-zinc-300 italic mb-6">"Lost 15kg in 4 months. The trainers actually care here, and the environment is entirely ego-free. Best decision of my life."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-zinc-600 rounded-full flex items-center justify-center font-bold">R</div>
+            <div>
+              <div class="text-sm font-bold">Rahul T.</div>
+              <div class="text-xs text-brand-trust">Down 15kg</div>
+            </div>
+          </div>
+        </div>
+        <!-- Review 2 -->
+        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50">
+          <div class="flex text-yellow-500 text-sm mb-4">
+            <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
+          </div>
+          <p class="text-sm text-zinc-300 italic mb-6">"I had never lifted a weight before. The beginner intro program made me feel so comfortable, and now I'm here 5 days a week!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-zinc-600 rounded-full flex items-center justify-center font-bold">P</div>
+            <div>
+              <div class="text-sm font-bold">Priya S.</div>
+              <div class="text-xs text-brand-trust">Gained Strength</div>
+            </div>
+          </div>
+        </div>
+        <!-- Review 3 -->
+        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50 hidden lg:block">
+          <div class="flex text-yellow-500 text-sm mb-4">
+            <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
+          </div>
+          <p class="text-sm text-zinc-300 italic mb-6">"The equipment is top notch. They have deadlift platforms and specialty bars you won't find at standard commercial gyms."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-zinc-600 rounded-full flex items-center justify-center font-bold">A</div>
+            <div>
+              <div class="text-sm font-bold">Arjun R.</div>
+              <div class="text-xs text-brand-trust">Powerlifter</div>
+            </div>
+          </div>
+        </div>
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">Do you offer personal training?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              Yes, we have a team of elite certified personal trainers who offer 1-on-1 coaching, tailored workout blueprints, and nutritional guidance. You can book a free assessment session to see if it's right for you.
+            </div>
+          </div>
+        </div>
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">What are the gym's peak hours?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              Our busiest hours are typically between 6:00 AM - 8:30 AM and 5:30 PM - 8:30 PM. Since we are open 24/7, coming outside these windows guarantees a much quieter, private workout experience.
+            </div>
+          </div>
+        </div>
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">Is parking available at the facility?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              Yes, we provide free dedicated parking for all our members right outside the facility, monitored by 24/7 security cameras so your vehicle is always safe while you train.
+            </div>
+          </div>
+        </div>
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">Do you have locker rooms and showers?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              Absolutely. We offer premium locker rooms equipped with clean, private showers, fresh towels, and grooming amenities for your convenience before or after work.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 & 8. Meet the Trainers & Facility Tour Matrix -->
+  <section id="trainers" class="py-20 bg-brand-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        
+        <!-- Trainers -->
+        <div>
+          <h2 class="text-3xl font-extrabold mb-8">Meet Your Coaches</h2>
+          <div class="space-y-6">
+            <div class="flex items-center gap-4 bg-brand-panel p-4 rounded-2xl border border-zinc-800">
+              <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200" class="w-20 h-20 rounded-xl object-cover">
+              <div>
+                <h4 class="font-bold text-lg">Coach Vikram</h4>
+                <p class="text-xs text-brand-hot uppercase tracking-widest font-bold mb-1">Head of Strength</p>
+                <p class="text-sm text-zinc-400">ISSA Certified. Specializes in hypertrophy and contest prep.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-brand-panel p-4 rounded-2xl border border-zinc-800">
+              <img src="https://images.pexels.com/photos/3757954/pexels-photo-3757954.jpeg?auto=compress&cs=tinysrgb&w=200" class="w-20 h-20 rounded-xl object-cover">
+              <div>
+                <h4 class="font-bold text-lg">Coach Ananya</h4>
+                <p class="text-xs text-brand-hot uppercase tracking-widest font-bold mb-1">Functional Fitness</p>
+                <p class="text-sm text-zinc-400">CrossFit L2. Specializes in mobility and high-intensity interval training.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Facility Grid -->
+        <div id="facilities">
+          <h2 class="text-3xl font-extrabold mb-8 text-right">Inside the Forge</h2>
+          <p class="text-zinc-400 text-sm text-right mb-6">Train under the silent, powerful gaze of Lord Hanuman. Heavy iron dumbbells, pro machines, and a purely professional vibe.</p>
+          <div class="grid grid-cols-2 gap-3">
+            <img src="https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=600" class="rounded-xl h-40 w-full object-cover" alt="Heavy Iron Dumbbells">
+            <img src="https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=600" class="rounded-xl h-40 w-full object-cover" alt="Lord Hanuman Wall Art">
+            <img src="https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=1200" class="rounded-xl h-40 w-full object-cover col-span-2">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. FAQ -->
+  <section id="faq" class="py-20 bg-brand-panel border-y border-zinc-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-4">Frequently Asked Questions</h2>
+        <p class="text-zinc-400">Everything you need to know before joining.</p>
+      </div>
+      
+      <div class="space-y-3">
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">Do I need prior gym experience?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              Not at all! Over 40% of our new members have never consistently worked out before. We offer complimentary orientation sessions to teach you how to use every piece of equipment safely.
+            </div>
+          </div>
+        </div>
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">Are lock-in contract terms required?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              No. We operate purely on a month-to-month basis. We want you to stay because you love the results, not because a piece of paper forces you to. You can cancel anytime with a 7-day notice.
+            </div>
+          </div>
+        </div>
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">Can I freeze my membership if I travel?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              Yes! You can pause your membership for up to 3 months per year at zero cost. Just let the front desk know via WhatsApp or email before you leave.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Final CTA + Contact Closure -->
+  <section id="cta" class="py-24 bg-brand-dark relative overflow-hidden">
+    <!-- Background glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-yellow-600/10 blur-[100px] rounded-full z-0"></div>
+    
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="bg-brand-panel border border-zinc-700 rounded-3xl p-8 md:p-12 shadow-2xl shadow-black">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-brand-hot font-bold tracking-widest uppercase text-xs mb-2 block">Limited Time Offer</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Start Your Free Trial Today.</h2>
+            <p class="text-zinc-400 mb-8">Come try the facility for 3 days, completely on us. We'll even give you a free body composition scan on day 1.</p>
+            
+            <div class="space-y-4">
+              <a href="#" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors">
+                <i class="ti ti-brand-whatsapp text-xl"></i> Message on WhatsApp
+              </a>
+              <a href="tel:+919876543210" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors border border-zinc-700">
+                <i class="ti ti-phone text-xl"></i> Call +91 98765 43210
+              </a>
+            </div>
+          </div>
+          
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800">
+            <h3 class="text-xl font-bold mb-4">Claim Pass Now</h3>
+            <form onsubmit="alert('Lead captured successfully! In production, this ties to your CRM.'); return false;" class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Full Name</label>
+                <input type="text" required class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="Ravi Kumar">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Mobile Number</label>
+                <input type="tel" required class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="+91 00000 00000">
+              </div>
+              <button type="submit" class="w-full bg-brand-hot hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition-transform hover:scale-[1.02] shadow-lg shadow-yellow-900/20">
+                Send My Free Pass
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Persistent Floating Navigation CTA (Mobile Focused) -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-sm bg-[#25D366] text-white py-3 px-5 rounded-full shadow-2xl flex items-center justify-between border border-[#20bd5a] animate-bounce hover:animate-none z-50 md:hidden">
+    <div class="flex items-center gap-2">
+      <i class="ti ti-brand-whatsapp text-2xl"></i>
+      <p class="text-sm font-bold tracking-wide">Questions? Chat Now</p>
+    </div>
+    <a href="#" class="bg-white text-[#25D366] font-bold text-xs px-4 py-2 rounded-full shadow-sm hover:bg-gray-100 transition-colors">
+      Connect
+    </a>
+  </div>
+
+  <footer class="py-8 bg-black text-center border-t border-zinc-900">
+    <p class="text-zinc-600 text-sm">&copy; 2024 IronForge Fitness. All rights reserved.</p>
+  </footer>
+
+  <!-- Unified Day Modal Overlay -->
+  <div id="day-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden transition-opacity p-4">
+    <div class="bg-brand-panel w-full max-w-5xl mx-auto rounded-3xl border border-brand-hot/50 shadow-2xl shadow-yellow-900/20 overflow-hidden flex flex-col max-h-[95vh]">
+      
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-zinc-800 bg-brand-dark sticky top-0 z-10">
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="day-modal-title" class="text-2xl sm:text-3xl font-black text-brand-hot uppercase tracking-tight">Day Plan</h3>
+          <button onclick="closeModal('day-modal')" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 p-2 rounded-full"><i class="ti ti-x text-xl"></i></button>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <div class="flex justify-between text-[10px] font-bold text-zinc-400 mb-1 tracking-widest uppercase"><span>Workout</span><span id="workout-accuracy" class="text-brand-hot">0%</span></div>
+            <div class="w-full bg-zinc-800 rounded-full h-2"><div id="workout-progress" class="bg-brand-hot h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[10px] font-bold text-zinc-400 mb-1 tracking-widest uppercase"><span>Diet Adherence</span><span id="diet-accuracy" class="text-[#10B981]">0%</span></div>
+            <div class="w-full bg-zinc-800 rounded-full h-2"><div id="diet-progress" class="bg-[#10B981] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body (2 Columns) -->
+      <div class="p-6 overflow-y-auto flex-grow flex flex-col lg:flex-row gap-8">
+        
+        <!-- Exercises Section -->
+        <div class="w-full lg:w-1/2 flex flex-col gap-4">
+          <h4 class="text-lg font-bold border-b border-zinc-800 pb-2 mb-2 flex items-center gap-2"><i class="ti ti-barbell text-brand-hot"></i> Exercise Protocol</h4>
+          <div id="workout-section-content" class="space-y-4">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Diet Section -->
+        <div class="w-full lg:w-1/2 flex flex-col gap-4">
+          <h4 class="text-lg font-bold border-b border-zinc-800 pb-2 mb-2 flex items-center gap-2 justify-between">
+            <span><i class="ti ti-salad text-brand-hot"></i> Diet & Macros</span>
+          </h4>
+          <div class="bg-brand-hot/10 text-brand-hot text-xs p-3 rounded-xl border border-brand-hot/20 flex gap-2 items-start">
+            <i class="ti ti-info-circle text-lg mt-0.5"></i>
+            <p id="diet-disclaimer">Portions below are globally fixed based on an average 75kg individual. Adjust portions +/- 20% according to your specific bodyweight.</p>
+          </div>
+          <div id="diet-section-content" class="space-y-4">
+             <!-- Injected via JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-5 border-t border-zinc-800 bg-brand-dark sticky bottom-0 z-10 flex justify-end">
+        <button onclick="syncToProfile()" class="bg-brand-hot hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-xl transition-transform hover:scale-[1.02] shadow-lg shadow-yellow-900/20 flex items-center gap-2">
+          <i class="ti ti-device-floppy"></i> Save Progress
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth / Registration Modal -->
+  <div id="auth-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden transition-opacity p-4">
+    <div class="bg-brand-panel w-full max-w-md mx-auto rounded-3xl border border-zinc-700 shadow-2xl overflow-hidden relative">
+      <button onclick="closeModal('auth-modal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors bg-zinc-800 p-2 rounded-full z-10"><i class="ti ti-x"></i></button>
+      <div class="p-8 pt-10">
+        <div class="text-center mb-8">
+          <i class="ti ti-user-plus text-5xl text-brand-hot mb-4"></i>
+          <h3 class="text-2xl font-extrabold text-white mb-2" id="auth-title">Access The Forge</h3>
+          <p class="text-sm text-zinc-400" id="auth-subtitle">Login or register to securely track your journey.</p>
+        </div>
+
+        <div class="flex justify-center gap-6 mb-6 border-b border-zinc-800 pb-2">
+          <button type="button" onclick="toggleAuth('login')" id="tab-login" class="text-brand-hot font-bold border-b-2 border-brand-hot px-2 transition-colors">Login</button>
+          <button type="button" onclick="toggleAuth('register')" id="tab-register" class="text-zinc-500 font-bold px-2 hover:text-white transition-colors border-b-2 border-transparent">Register</button>
+        </div>
+        
+        <form onsubmit="handleAuth(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Warrior Name</label>
+            <input type="text" id="auth-name" required class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="e.g. Arjun">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Secure Password</label>
+            <input type="password" id="auth-password" required class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="••••••••">
+          </div>
+          
+          <div id="register-fields" class="hidden space-y-4">
+            <div class="grid grid-cols-2 gap-4 mt-4">
+              <div>
+                <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Start Weight (kg)</label>
+                <input type="number" id="reg-start-weight" min="30" max="250" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="75">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Target Weight (kg)</label>
+                <input type="number" id="reg-target-weight" min="30" max="250" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="80">
+              </div>
+            </div>
+          </div>
+          <button type="submit" id="auth-submit-btn" class="w-full bg-brand-hot hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition-transform hover:scale-[1.02] mt-4 shadow-lg shadow-yellow-900/20">
+            Enter The Forge
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- USER DASHBOARD & AUTH LOGIC ---
+    const API_URL = '/api';
+    let userData = JSON.parse(sessionStorage.getItem('ironForgeUser')) || null;
+    let authMode = 'login';
+
+    function initApp() {
+      if (userData) {
+        document.getElementById('nav-dashboard-link').classList.remove('hidden');
+        document.getElementById('user-dashboard').classList.remove('hidden');
+        updateDashboard();
+      }
+    }
+
+    function triggerRegistration() {
+      if (userData) {
+        window.location.href = "#user-dashboard";
+      } else {
+        toggleAuth('login');
+        document.getElementById('auth-modal').classList.remove('hidden');
+      }
+    }
+
+    function toggleAuth(mode) {
+      authMode = mode;
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const regFields = document.getElementById('register-fields');
+      const submitBtn = document.getElementById('auth-submit-btn');
+
+      if (mode === 'login') {
+        tabLogin.classList.add('text-brand-hot', 'border-brand-hot');
+        tabLogin.classList.remove('text-zinc-500', 'border-transparent');
+        tabRegister.classList.remove('text-brand-hot', 'border-brand-hot');
+        tabRegister.classList.add('text-zinc-500', 'border-transparent');
+        
+        regFields.classList.add('hidden');
+        document.getElementById('reg-start-weight').removeAttribute('required');
+        document.getElementById('reg-target-weight').removeAttribute('required');
+        submitBtn.innerText = "Log In Securely";
+      } else {
+        tabRegister.classList.add('text-brand-hot', 'border-brand-hot');
+        tabRegister.classList.remove('text-zinc-500', 'border-transparent');
+        tabLogin.classList.remove('text-brand-hot', 'border-brand-hot');
+        tabLogin.classList.add('text-zinc-500', 'border-transparent');
+        
+        regFields.classList.remove('hidden');
+        document.getElementById('reg-start-weight').setAttribute('required', 'true');
+        document.getElementById('reg-target-weight').setAttribute('required', 'true');
+        submitBtn.innerText = "Create Profile";
+      }
+    }
+
+    async function handleAuth(e) {
+      e.preventDefault();
+      const name = document.getElementById('auth-name').value.trim();
+      const password = document.getElementById('auth-password').value;
+      const todayDateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+
+      try {
+        if (authMode === 'register') {
+          const startWt = document.getElementById('reg-start-weight').value;
+          const targetWt = document.getElementById('reg-target-weight').value;
+          
+          const payload = { 
+            name, password, startWt, currentWt: startWt, targetWt, 
+            startDate: new Date().toISOString(),
+            weightHistory: [{ date: todayDateStr, weight: startWt }],
+            progressData: {}
+          };
+          
+          const res = await fetch(`${API_URL}/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if(!res.ok) return alert(data.error);
+          sessionStorage.setItem('ironForgeUser', JSON.stringify(data.user));
+        } else {
+          const res = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, password })
+          });
+          const data = await res.json();
+          if(!res.ok) return alert(data.error);
+          sessionStorage.setItem('ironForgeUser', JSON.stringify(data.user));
+        }
+        location.reload();
+      } catch (err) {
+        alert("Server connection failed. Make sure your Node.js backend is running!");
+      }
+    }
+
+    function logoutUser() {
+      sessionStorage.removeItem('ironForgeUser');
+      userData = null;
+      location.reload();
+    }
+
+    async function updateCurrentWeight() {
+      const newWt = prompt("Update your current weight (kg):", userData.currentWt);
+      if(newWt && !isNaN(newWt)) {
+        const todayDateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+        userData.currentWt = newWt;
+        if (!userData.weightHistory) userData.weightHistory = [{ date: new Date(userData.startDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }), weight: userData.startWt }];
+        userData.weightHistory.push({ date: todayDateStr, weight: newWt });
+        
+        sessionStorage.setItem('ironForgeUser', JSON.stringify(userData));
+        
+        await fetch(`${API_URL}/update-weight`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: userData.name, currentWt: newWt, weightHistory: userData.weightHistory })
+        });
+        updateDashboard();
+      }
+    }
+
+    function updateDashboard() {
+      if(!userData) return;
+      document.getElementById('dash-name').innerText = userData.name;
+      
+      const start = new Date(userData.startDate);
+      document.getElementById('dash-start-date').innerText = start.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+      
+      // calculate days active (minimum 1 day)
+      const daysActive = Math.max(1, Math.floor((new Date() - start) / (1000 * 60 * 60 * 24)));
+      document.getElementById('dash-days-active').innerText = daysActive;
+      
+      document.getElementById('dash-current-wt').innerText = userData.currentWt;
+      document.getElementById('dash-target-wt').innerText = userData.targetWt;
+
+      // Dashboard Extra Features - Weight Progress
+      document.getElementById('dash-start-wt-display').innerText = userData.startWt;
+      document.getElementById('dash-target-wt-display').innerText = userData.targetWt;
+
+      // Update Precision Nutrition UI
+      const nutrition = calculateNutrition(userData.currentWt, userData.targetWt);
+      document.getElementById('dash-calories').innerHTML = `${nutrition.calories} <span class="text-base text-zinc-500 font-normal">kcal</span>`;
+      document.getElementById('dash-eta').innerHTML = `${nutrition.daysToGoal} <span class="text-sm text-zinc-500 font-normal">days</span>`;
+      document.getElementById('dash-protein').innerText = `${nutrition.protein}g`;
+      document.getElementById('dash-carbs').innerText = `${nutrition.carbs}g`;
+      document.getElementById('dash-fats').innerText = `${nutrition.fats}g`;
+      document.getElementById('dash-goal-phase').innerHTML = nutrition.phaseText;
+
+      const startWt = parseFloat(userData.startWt);
+      const currentWt = parseFloat(userData.currentWt);
+      const targetWt = parseFloat(userData.targetWt);
+      let wtProgress = 0;
+      if (startWt !== targetWt) {
+          if (startWt > targetWt) {
+              // Weight loss goal
+              wtProgress = Math.max(0, Math.min(100, ((startWt - currentWt) / (startWt - targetWt)) * 100));
+          } else {
+              // Weight gain goal
+              wtProgress = Math.max(0, Math.min(100, ((currentWt - startWt) / (targetWt - startWt)) * 100));
+          }
+      } else {
+          wtProgress = 100;
+      }
+      document.getElementById('dash-wt-progress').style.width = `${wtProgress}%`;
+
+      // Calculate Power Level
+      let powerLevel = calculatePowerLevel(userData);
+      document.getElementById('dash-power-level').innerText = powerLevel;
+
+      // Rank & Tier Logic Update
+      const rankEl = document.getElementById('dash-rank');
+      const tierProgressEl = document.getElementById('dash-tier-progress');
+      const nextTierEl = document.getElementById('dash-next-tier');
+
+      let rank = 'Bronze'; let nextThreshold = 101; let rankColor = 'text-[#cd7f32]'; 
+
+      if (powerLevel >= 601) { rank = 'Diamond'; rankColor = 'text-[#b9f2ff]'; nextThreshold = powerLevel; }
+      else if (powerLevel >= 301) { rank = 'Gold'; rankColor = 'text-[#ffd700]'; nextThreshold = 601; }
+      else if (powerLevel >= 101) { rank = 'Silver'; rankColor = 'text-[#c0c0c0]'; nextThreshold = 301; }
+
+      rankEl.innerHTML = `<span class="${rankColor} font-black uppercase tracking-widest text-lg">${rank}</span>`;
+      
+      if (powerLevel >= 601) {
+         tierProgressEl.style.width = '100%';
+         nextTierEl.innerText = "Max Tier Reached!";
+      } else {
+         let prevThreshold = rank === 'Bronze' ? 0 : (rank === 'Silver' ? 101 : 301);
+         let progressPercent = ((powerLevel - prevThreshold) / (nextThreshold - prevThreshold)) * 100;
+         tierProgressEl.style.width = `${progressPercent}%`;
+         nextTierEl.innerText = `${nextThreshold - powerLevel} pts to next tier`;
+      }
+
+      renderWeightChart();
+      updateLeaderboard();
+    }
+
+    let weightChartInstance = null;
+    function renderWeightChart() {
+      if (!userData.weightHistory) userData.weightHistory = [{ date: new Date(userData.startDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }), weight: userData.startWt }];
+      
+      const ctx = document.getElementById('weightChart').getContext('2d');
+      if (weightChartInstance) weightChartInstance.destroy();
+
+      const labels = userData.weightHistory.map(entry => entry.date);
+      const data = userData.weightHistory.map(entry => entry.weight);
+
+      weightChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Bodyweight (kg)',
+            data: data,
+            borderColor: '#D4AF37',
+            backgroundColor: 'rgba(212, 175, 55, 0.1)',
+            borderWidth: 3,
+            pointBackgroundColor: '#10B981',
+            pointBorderColor: '#fff',
+            pointRadius: 5,
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { grid: { color: '#27272a' }, ticks: { color: '#a1a1aa' } }, x: { grid: { color: '#27272a' }, ticks: { color: '#a1a1aa' } } }
+        }
+      });
+    }
+
+    function calculateNutrition(currentWt, targetWt) {
+      const current = parseFloat(currentWt) || 75;
+      const target = parseFloat(targetWt) || 75;
+      const weightDiff = target - current;
+
+      // BMR estimate * activity multiplier (approx 33 * BW for maintenance)
+      let maintenanceCals = Math.round(current * 33);
+      let calories = maintenanceCals;
+      let daysToGoal = 0;
+      let phaseText = "Maintenance Phase";
+      let isCutting = false;
+      let isBulking = false;
+
+      // Roughly 7700 kcal per kg of body tissue. Assuming 500 kcal deficit/surplus.
+      if (weightDiff > 0) {
+          isBulking = true;
+          calories = maintenanceCals + 500;
+          phaseText = "<strong class='text-brand-trust'>Bulking Phase (Muscle Gain)</strong><br/>Requires a +500 kcal surplus/day.";
+          daysToGoal = Math.round((Math.abs(weightDiff) * 7700) / 500);
+      } else if (weightDiff < 0) {
+          isCutting = true;
+          calories = maintenanceCals - 500;
+          phaseText = "<strong class='text-brand-hot'>Cutting Phase (Fat Loss)</strong><br/>Requires a -500 kcal deficit/day.";
+          daysToGoal = Math.round((Math.abs(weightDiff) * 7700) / 500);
+      } else {
+          phaseText = "<strong class='text-zinc-300'>Maintenance Phase</strong><br/>Keep up the great work!";
+      }
+
+      let protein = Math.round(current * 2.2); // 2.2g per kg
+      let fats = Math.round(current * 0.8);    // 0.8g per kg
+      let carbs = Math.max(0, Math.round((calories - (protein * 4) - (fats * 9)) / 4));
+
+      return { calories, protein, carbs, fats, daysToGoal, phaseText, isCutting, isBulking };
+    }
+
+    function calculatePowerLevel(uData) {
+      if(!uData || !uData.progressData) return 0;
+      let pLevel = 0;
+      for (const [key, val] of Object.entries(uData.progressData)) {
+        if(key.startsWith(`workout_`) && val === true) pLevel += 10;
+        if(key.startsWith(`diet_`) && val === true) pLevel += 5;
+      }
+      return pLevel;
+    }
+
+    async function updateLeaderboard() {
+      try {
+        const res = await fetch(`${API_URL}/users`);
+        const allUsersList = await res.json();
+        
+        const lb = document.getElementById('leaderboard-content');
+        let html = '';
+        
+        const sortedUsers = allUsersList.map(u => ({ name: u.name, power: calculatePowerLevel(u) })).sort((a, b) => b.power - a.power);
+        
+        sortedUsers.forEach((u, index) => {
+          let tier = 'Bronze'; let color = 'text-[#cd7f32]';
+          if (u.power >= 601) { tier = 'Diamond'; color = 'text-[#b9f2ff]'; }
+          else if (u.power >= 301) { tier = 'Gold'; color = 'text-[#ffd700]'; }
+          else if (u.power >= 101) { tier = 'Silver'; color = 'text-[#c0c0c0]'; }
+          const rankMedal = index === 0 ? '👑' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : `#${index + 1}`));
+          
+          html += `<div class="flex justify-between items-center p-3 bg-zinc-900/50 border border-zinc-800/80 rounded-xl hover:border-zinc-700 transition-colors">
+                     <div class="flex items-center gap-3"><span class="font-black text-brand-hot w-6 text-center">${rankMedal}</span><span class="font-bold text-white text-sm">${u.name}</span></div>
+                     <span class="${color} font-black uppercase tracking-wider text-xs">${tier} <span class="text-zinc-500 font-medium lowercase">(${u.power} pts)</span></span>
+                   </div>`;
+        });
+        lb.innerHTML = html;
+      } catch(err) { console.error("Leaderboard fetch error"); }
+    }
+
+    // Plan Data & Logic
+    const planData = {
+      monday: {
+        title: "Monday",
+        diet: [
+          { meal: "Pre-Workout (Premium)", food: "50g Oats, Whey Protein & 1 Medium Banana", img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Pre-Workout (Cheap)", food: "2 Bananas & Strong Black Coffee", img: "https://images.pexels.com/photos/1105366/pexels-photo-1105366.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Premium)", food: "200g Chicken Breast / Paneer & 100g Quinoa", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Cheap)", food: "5 Boiled Eggs / Soya Chunks & White Rice", img: "https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Full Day Protocol", food: "Target: 150g Protein, 200g Carbs, 60g Fat. Drink 3.5L Water.", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ],
+        workout: [
+          { name: "Barbell Bench Press", reps: "4 sets of 8", img: "https://www.gymguider.com/wp-content/uploads/2017/10/Bench-Press.gif" },
+          { name: "Incline DB Press", reps: "3 sets of 10", img: "https://images.pexels.com/photos/3837731/pexels-photo-3837731.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Overhead Press", reps: "3 sets of 10", img: "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Tricep Pushdowns", reps: "3 sets of 12", img: "https://www.gymguider.com/wp-content/uploads/2017/10/cable-triceps-pushdown.gif" }
+        ]
+      },
+      tuesday: {
+        title: "Tuesday",
+        diet: [
+          { meal: "Pre-Workout (Premium)", food: "Apple, Peanut Butter & Green Tea", img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Pre-Workout (Cheap)", food: "2 Slices Brown Bread with Jam & Coffee", img: "https://images.pexels.com/photos/1105366/pexels-photo-1105366.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Premium)", food: "200g Fish (Tilapia/Basa) & Sweet Potato", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Cheap)", food: "100g Soya Chunks Curry & 2 Rotis", img: "https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Full Day Protocol", food: "Target: 140g Protein, 180g Carbs, 65g Fat. Stay Active.", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ],
+        workout: [
+          { name: "Deadlifts", reps: "4 sets of 5", img: "https://www.gymguider.com/wp-content/uploads/2017/10/barbell-deadlift.gif" },
+          { name: "Lat Pulldowns", reps: "3 sets of 10", img: "https://www.gymguider.com/wp-content/uploads/2017/10/front-pulldown.gif" },
+          { name: "Barbell Rows", reps: "3 sets of 10", img: "https://images.pexels.com/photos/3837731/pexels-photo-3837731.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Bicep Curls", reps: "3 sets of 12", img: "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ]
+      },
+      wednesday: {
+        title: "Wednesday",
+        diet: [
+          { meal: "Pre-Workout (Premium)", food: "150g Sweet Potatoes & 100g Greek Yogurt", img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Pre-Workout (Cheap)", food: "Boiled Potatoes with Salt & Coffee", img: "https://images.pexels.com/photos/1105366/pexels-photo-1105366.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Premium)", food: "250g Chicken Leg Piece & Brown Rice", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Cheap)", food: "Lentils (Dal) Bowl, White Rice & Ghee", img: "https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Full Day Protocol", food: "Target: 160g Protein, 250g Carbs (Leg Day), 50g Fat.", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ],
+        workout: [
+          { name: "Barbell Squats", reps: "4 sets of 8", img: "https://www.gymguider.com/wp-content/uploads/2017/10/Barbell-Squat.gif" },
+          { name: "Leg Press", reps: "3 sets of 10", img: "https://www.gymguider.com/wp-content/uploads/2017/10/leg-press.gif" },
+          { name: "RDLs", reps: "3 sets of 10", img: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Calf Raises", reps: "4 sets of 15", img: "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ]
+      },
+      thursday: {
+        title: "Thursday",
+        diet: [
+          { meal: "Pre-Workout (Premium)", food: "Avocado Toast & 3 Whole Eggs", img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Pre-Workout (Cheap)", food: "Oats with Water, Sugar, and Peanuts", img: "https://images.pexels.com/photos/1105366/pexels-photo-1105366.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Premium)", food: "Mixed Nuts, Berries & Protein Shake", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Cheap)", food: "Paneer/Tofu Bhurji & Mixed Green Salad", img: "https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Full Day Protocol", food: "Active Rest Day. Low Carb, High Fat. 3L Water.", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ],
+        workout: [
+          { name: "Light Cardio", reps: "30 Mins", img: "https://images.pexels.com/photos/3775191/pexels-photo-3775191.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Yoga Routines", reps: "15 Mins", img: "https://images.pexels.com/photos/3775191/pexels-photo-3775191.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Core/Abs Work", reps: "10 Mins", img: "https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Foam Rolling", reps: "10 Mins", img: "https://images.pexels.com/photos/3837731/pexels-photo-3837731.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ]
+      },
+      friday: {
+        title: "Friday",
+        diet: [
+          { meal: "Pre-Workout (Premium)", food: "150g Greek Yogurt & Mixed Berries", img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Pre-Workout (Cheap)", food: "2 Bananas & Handful of Chana (Chickpeas)", img: "https://images.pexels.com/photos/1105366/pexels-photo-1105366.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Premium)", food: "Lean Turkey / Paneer Tikka & Quinoa", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Cheap)", food: "Egg Bhurji (4 Eggs) & 2 Rotis", img: "https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Full Day Protocol", food: "Target: 150g Protein, 200g Carbs, 60g Fat.", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ],
+        workout: [
+          { name: "Pull-Ups", reps: "3 sets of 10", img: "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "DB Bench Press", reps: "3 sets of 10", img: "https://images.pexels.com/photos/3837757/pexels-photo-3837757.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Lateral Raises", reps: "3 sets of 15", img: "https://images.pexels.com/photos/3837731/pexels-photo-3837731.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Arm Superset", reps: "3 sets of 12", img: "https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ]
+      },
+      saturday: {
+        title: "Saturday",
+        diet: [
+          { meal: "Pre-Workout (Premium)", food: "Protein Pancakes & Maple Syrup", img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Pre-Workout (Cheap)", food: "150g Poha/Upma & Coffee", img: "https://images.pexels.com/photos/1105366/pexels-photo-1105366.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Premium)", food: "Salmon Steak & Whole Wheat Pasta", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Post-Workout (Cheap)", food: "Rajma (Lentils), Curd, and White Rice", img: "https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Full Day Protocol", food: "Target: 160g Protein, 220g Carbs, 55g Fat.", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ],
+        workout: [
+          { name: "Front Squats", reps: "3 sets of 10", img: "https://images.pexels.com/photos/3837757/pexels-photo-3837757.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Walking Lunges", reps: "3 sets of 12", img: "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Leg Extensions", reps: "3 sets of 15", img: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Weighted Planks", reps: "3 sets of 60s", img: "https://images.pexels.com/photos/3775191/pexels-photo-3775191.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ]
+      },
+      sunday: {
+        title: "Sunday",
+        diet: [
+          { meal: "Morning Recovery (Premium)", food: "Protein Smoothie with Greens", img: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Morning Recovery (Cheap)", food: "Oatmeal with Milk & Raisins", img: "https://images.pexels.com/photos/1105366/pexels-photo-1105366.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Cheat Meal Allowed", food: "1 Cheat Meal Allowed (Max 800-1000 kcals)", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Evening Prep", food: "Keep protein high to prepare for Monday.", img: "https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { meal: "Full Day Protocol", food: "Adhere to TDEE Maintenance Calories. Hydrate.", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ],
+        workout: [
+          { name: "Physical Rest", reps: "Complete Rest", img: "https://images.pexels.com/photos/3775191/pexels-photo-3775191.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Hydration", reps: "3-4 Liters Water", img: "https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Sleep", reps: "8+ Hours", img: "https://images.pexels.com/photos/3837731/pexels-photo-3837731.jpeg?auto=compress&cs=tinysrgb&w=400" },
+          { name: "Meal Prep", reps: "For Next Week", img: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400" }
+        ]
+      }
+    };
+
+    let currentDayId = '';
+    let tempWorkoutState = {};
+    let tempDietState = {};
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function openDayModal(day) {
+      if(!userData) {
+        triggerRegistration();
+        return;
+      }
+
+      currentDayId = day;
+      const data = planData[day];
+      document.getElementById('day-modal-title').innerText = data.title;
+      
+      tempWorkoutState = {};
+      tempDietState = {};
+      
+      // Generate Workout HTML
+      let workoutHtml = '';
+      data.workout.forEach((item, index) => {
+        const isDone = userData.progressData && userData.progressData[`workout_${day}_${index}`] === true;
+        tempWorkoutState[index] = isDone;
+        
+        const cardClass = isDone ? 'border-brand-hot bg-brand-hot/10' : 'border-zinc-700 bg-zinc-900';
+        const btnClass = isDone ? 'bg-brand-hot text-black' : 'bg-zinc-700 text-white';
+        const btnText = isDone ? 'Completed <i class="ti ti-check"></i>' : 'Mark Done';
+
+        workoutHtml += `
+          <div id="ex-${index}" class="flex gap-4 items-center ${cardClass} p-3 rounded-2xl border transition-colors">
+            <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover">
+            <div class="flex-grow">
+              <h4 class="text-white font-semibold">${item.name}</h4>
+              <span class="text-xs text-zinc-400">${item.reps}</span>
+            </div>
+            <button id="ex-btn-${index}" onclick="toggleExercise(${index})" class="${btnClass} text-xs font-bold px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+              ${btnText}
+            </button>
+          </div>
+        `;
+      });
+      document.getElementById('workout-section-content').innerHTML = workoutHtml;
+      
+      // Generate Diet HTML
+      let dietHtml = '';
+      const nutrition = calculateNutrition(userData.currentWt, userData.targetWt);
+      
+      let disclaimerText = `Portions below are baseline. `;
+      if (nutrition.isCutting) disclaimerText += `<strong class="text-brand-hot">You are CUTTING:</strong> Reduce carb portions by 20-30% from the list below.`;
+      else if (nutrition.isBulking) disclaimerText += `<strong class="text-brand-trust">You are BULKING:</strong> Increase carb and protein portions by 20% from the list below.`;
+      else disclaimerText += `You are in maintenance. Keep portions as is.`;
+      document.getElementById('diet-disclaimer').innerHTML = disclaimerText;
+
+      data.diet.forEach((item, index) => {
+        const isDone = userData.progressData && userData.progressData[`diet_${day}_${index}`] === true;
+        tempDietState[index] = isDone;
+
+        const cardClass = isDone ? 'border-[#10B981] bg-[#10B981]/10' : 'border-zinc-700 bg-zinc-900';
+        const btnClass = isDone ? 'bg-[#10B981] text-black' : 'bg-zinc-700 text-white';
+        const btnText = isDone ? 'Eaten <i class="ti ti-check"></i>' : 'Mark Eaten';
+
+        let foodText = item.food;
+        if (item.meal === "Full Day Protocol") {
+           foodText = `<span class="text-brand-hot">Personalized Macro Target:</span> ${nutrition.protein}g Protein, ${nutrition.carbs}g Carbs, ${nutrition.fats}g Fat (${nutrition.calories} kcal). Drink 3.5L Water.`;
+        }
+
+        dietHtml += `
+          <div id="diet-${index}" class="flex gap-4 items-center ${cardClass} p-3 rounded-2xl border transition-colors">
+            <img src="${item.img}" class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover">
+            <div class="flex-grow">
+              <span class="text-[10px] text-brand-hot uppercase tracking-widest font-bold block mb-1">${item.meal}</span>
+              <h4 class="text-white font-semibold text-sm sm:text-base leading-snug">${foodText}</h4>
+            </div>
+            <button id="diet-btn-${index}" onclick="toggleDiet(${index})" class="${btnClass} text-xs font-bold px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+              ${btnText}
+            </button>
+          </div>
+        `;
+      });
+      document.getElementById('diet-section-content').innerHTML = dietHtml;
+
+      updateProgress();
+      document.getElementById('day-modal').classList.remove('hidden');
+    }
+
+    function openTodaysPlan() {
+      const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+      const today = days[new Date().getDay()];
+      openDayModal(today);
+    }
+
+    function toggleExercise(index) {
+      const isDone = !tempWorkoutState[index];
+      tempWorkoutState[index] = isDone;
+      
+      const card = document.getElementById('ex-' + index);
+      const btn = document.getElementById('ex-btn-' + index);
+      
+      if (isDone) {
+        card.classList.add('border-brand-hot', 'bg-brand-hot/10');
+        card.classList.remove('border-zinc-700', 'bg-zinc-900');
+        btn.innerHTML = 'Completed <i class="ti ti-check"></i>';
+        btn.classList.add('bg-brand-hot', 'text-black');
+        btn.classList.remove('bg-zinc-700', 'text-white');
+      } else {
+        card.classList.remove('border-brand-hot', 'bg-brand-hot/10');
+        card.classList.add('border-zinc-700', 'bg-zinc-900');
+        btn.innerHTML = 'Mark Done';
+        btn.classList.remove('bg-brand-hot', 'text-black');
+        btn.classList.add('bg-zinc-700', 'text-white');
+      }
+      updateProgress();
+    }
+
+    function toggleDiet(index) {
+      const isDone = !tempDietState[index];
+      tempDietState[index] = isDone;
+
+      const card = document.getElementById('diet-' + index);
+      const btn = document.getElementById('diet-btn-' + index);
+      
+      if (isDone) {
+        card.classList.add('border-[#10B981]', 'bg-[#10B981]/10');
+        card.classList.remove('border-zinc-700', 'bg-zinc-900');
+        btn.innerHTML = 'Eaten <i class="ti ti-check"></i>';
+        btn.classList.add('bg-[#10B981]', 'text-black');
+        btn.classList.remove('bg-zinc-700', 'text-white');
+      } else {
+        card.classList.remove('border-[#10B981]', 'bg-[#10B981]/10');
+        card.classList.add('border-zinc-700', 'bg-zinc-900');
+        btn.innerHTML = 'Mark Eaten';
+        btn.classList.remove('bg-[#10B981]', 'text-black');
+        btn.classList.add('bg-zinc-700', 'text-white');
+      }
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const totalW = planData[currentDayId].workout.length;
+      const compW = Object.values(tempWorkoutState).filter(Boolean).length;
+      const wAcc = Math.round((compW / totalW) * 100);
+      
+      document.getElementById('workout-progress').style.width = wAcc + '%';
+      document.getElementById('workout-accuracy').innerText = wAcc + '% Accuracy';
+
+      const totalD = planData[currentDayId].diet.length;
+      const compD = Object.values(tempDietState).filter(Boolean).length;
+      const dAcc = Math.round((compD / totalD) * 100);
+
+      document.getElementById('diet-progress').style.width = dAcc + '%';
+      document.getElementById('diet-accuracy').innerText = dAcc + '% Accuracy';
+    }
+
+    async function syncToProfile() {
+      if(!userData.progressData) userData.progressData = {};
+      
+      Object.keys(tempWorkoutState).forEach(index => userData.progressData[`workout_${currentDayId}_${index}`] = tempWorkoutState[index]);
+      Object.keys(tempDietState).forEach(index => userData.progressData[`diet_${currentDayId}_${index}`] = tempDietState[index]);
+      
+      sessionStorage.setItem('ironForgeUser', JSON.stringify(userData));
+      
+      try {
+        await fetch(`${API_URL}/sync`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: userData.name, progressData: userData.progressData })
+        });
+        updateDashboard();
+        closeModal('day-modal');
+        alert("Progress Synced Successfully! Iron Aura Power Level Updated.");
+      } catch(err) { alert("Failed to sync with server!"); }
+    }
+
+    // FAQ Accordion Logic
+    function toggleFaq(element) {
+      const content = element.querySelector('.faq-content');
+      const chevron = element.querySelector('.faq-chevron');
+      
+      // Close all other open accordions (optional, but good UX)
+      document.querySelectorAll('.faq-content.open').forEach(openContent => {
+        if (openContent !== content) {
+          openContent.classList.remove('open');
+          openContent.previousElementSibling.querySelector('.faq-chevron').style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Toggle clicked panel
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        chevron.style.transform = 'rotate(0deg)';
+      } else {
+        content.classList.add('open');
+        chevron.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('Service Worker Registered!', reg))
+          .catch(err => console.error('Service Worker Registration Failed!', err));
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
