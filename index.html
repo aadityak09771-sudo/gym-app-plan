@@ -128,7 +128,7 @@
 
   <!-- Preloader Logo -->
   <div id="preloader">
-    <div class="loader-dumbbell"><i class="ti ti-barbell"></i></div>
+    <div class="loader-dumbbell"><i class="ti ti-kettlebell"></i></div>
     <div class="loader-text">IronForge<br><span class="text-brand-hot">Fit</span></div>
     <div class="loader-progress-bar"><div class="loader-progress-fill"></div></div>
   </div>
@@ -137,7 +137,7 @@
   <nav class="fixed w-full z-50 bg-brand-dark/80 backdrop-blur-lg border-b border-zinc-800/50 transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-2 font-black text-xl tracking-tight uppercase font-heading">
-        <i class="ti ti-barbell text-brand-hot text-2xl"></i>
+        <i class="ti ti-kettlebell text-brand-hot text-2xl"></i>
         IronForge <span class="text-brand-hot">Fit</span>
       </div>
       <div class="hidden md:flex gap-6 text-sm font-medium text-zinc-300">
@@ -463,7 +463,7 @@
           <p class="text-sm text-zinc-400">Train on your own schedule. Our facility is open and secure 24 hours a day, 365 days a year.</p>
         </div>
         <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors" data-aos="fade-up" data-aos-delay="200">
-          <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-barbell"></i></div>
+          <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-kettlebell"></i></div>
           <h3 class="text-xl font-bold mb-2">Modern Equipment</h3>
           <p class="text-sm text-zinc-400">From premium Olympic lifting platforms to advanced isolated cardio zones, we have it all.</p>
         </div>
@@ -1192,6 +1192,13 @@
     let authMode = 'login';
 
     // --- AI MACRO LOGGER & DATABASE ---
+    // WARNING: Storing API keys in client-side code is a major security risk.
+    // This key will be visible to anyone who inspects your website's code.
+    // For production, it's highly recommended to use a backend server or serverless function
+    // to handle API requests, keeping your API key secure.
+    // Replace 'YOUR_GROQ_API_KEY_HERE' with the key you provided.
+    const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE';
+
     const foodDatabase = {
       "chicken breast": { p: 31, c: 0, f: 3.6, cal: 165 },
       "white rice": { p: 2.7, c: 28, f: 0.3, cal: 130 },
@@ -1460,20 +1467,67 @@
 
     // --- AI CHATBOT LOGIC ---
     function toggleAIChat() { document.getElementById('ai-chat-window').classList.toggle('hidden'); }
-    function sendChatMessage() {
+    async function sendChatMessage() {
       const input = document.getElementById('chat-input');
       const msg = input.value.trim();
       if (!msg) return;
+
       const chatMessages = document.getElementById('chat-messages');
+      
+      // Add user message to chat
       chatMessages.innerHTML += `<div class="flex gap-2 justify-end"><div class="bg-brand-hot p-2.5 rounded-xl rounded-tr-none text-black font-medium">${msg}</div></div>`;
-      input.value = ''; chatMessages.scrollTop = chatMessages.scrollHeight;
-      setTimeout(() => {
-        let reply = "I am your AI Coach. Keep pushing hard!";
-        if(msg.toLowerCase().includes('creatine')) reply = "Creatine Monohydrate helps increase ATP production for explosive energy and muscle fullness.";
-        if(msg.toLowerCase().includes('protein')) reply = "Aim for 1.6 to 2.2 grams of protein per kg of body weight for optimal muscle hypertrophy.";
-        chatMessages.innerHTML += `<div class="flex gap-2"><div class="w-6 h-6 rounded-full bg-brand-hot flex-shrink-0 flex items-center justify-center text-black text-xs"><i class="ti ti-robot"></i></div><div class="bg-zinc-800 p-2.5 rounded-xl rounded-tl-none text-zinc-300">${reply}</div></div>`;
+      input.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Add typing indicator
+      chatMessages.innerHTML += `<div id="typing-indicator" class="flex gap-2"><div class="w-6 h-6 rounded-full bg-brand-hot flex-shrink-0 flex items-center justify-center text-black text-xs"><i class="ti ti-robot"></i></div><div class="bg-zinc-800 p-2.5 rounded-xl rounded-tl-none text-zinc-300">...</div></div>`;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${GROQ_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'llama3-8b-8192', // Fast and capable model on Groq
+            messages: [
+              {
+                role: 'system',
+                content: 'You are IronBot, an expert AI fitness coach for the IronForge Fitness gym. Your tone is motivating, knowledgeable, and slightly intense, like a dedicated personal trainer. You provide concise, accurate, and safe advice on fitness, nutrition, and workout form. You are here to help users achieve their "Sankalp Se Siddhi" (determination to accomplishment). Keep responses focused on health and fitness.'
+              },
+              {
+                role: 'user',
+                content: msg
+              }
+            ]
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to get response from AI coach.');
+        }
+
+        const data = await response.json();
+        const reply = data.choices[0]?.message?.content;
+
+        document.getElementById('typing-indicator').remove();
+
+        if (reply) {
+          chatMessages.innerHTML += `<div class="flex gap-2"><div class="w-6 h-6 rounded-full bg-brand-hot flex-shrink-0 flex items-center justify-center text-black text-xs"><i class="ti ti-robot"></i></div><div class="bg-zinc-800 p-2.5 rounded-xl rounded-tl-none text-zinc-300">${reply}</div></div>`;
+        } else {
+          throw new Error('Received an empty response from AI coach.');
+        }
+      } catch (error) {
+        console.error('AI Chat Error:', error);
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+          typingIndicator.querySelector('div:last-child').innerHTML = 'Sorry, I am having trouble connecting. Please try again later.';
+        }
+      } finally {
         chatMessages.scrollTop = chatMessages.scrollHeight;
-      }, 1000);
+      }
     }
 
     let weightChartInstance = null;
