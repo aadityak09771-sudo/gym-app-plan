@@ -7,6 +7,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   
+  <!-- Google Fonts & AOS Animation CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <!-- PWA Metadata & Chart.js -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0a0a0a">
@@ -16,6 +20,10 @@
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Montserrat', 'sans-serif'],
+          },
           colors: {
             brand: {
               hot: '#D4AF37',     /* Royal Gold / CTA */
@@ -30,6 +38,66 @@
     }
   </script>
   <style>
+    /* Preloader Animation */
+    #preloader {
+      position: fixed; inset: 0; z-index: 99999;
+      background-color: #0a0a0a;
+      background-image: url('https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1920');
+      background-size: cover;
+      background-position: center;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease;
+    }
+    #preloader::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.98));
+      backdrop-filter: blur(4px);
+    }
+    #preloader > * {
+      position: relative; z-index: 1;
+    }
+    .loader-dumbbell {
+      font-size: 5rem;
+      color: #D4AF37;
+      animation: spin3d 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 20px 25px rgba(212, 175, 55, 0.5));
+    }
+    @keyframes spin3d {
+      0% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+      50% { transform: perspective(1000px) rotateY(180deg) translateY(-30px); }
+      100% { transform: perspective(1000px) rotateY(360deg) translateY(0); }
+    }
+    .loader-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 2.8rem;
+      color: #fff; text-transform: uppercase; letter-spacing: 4px;
+      text-align: center; line-height: 1.2;
+      margin-top: 1.5rem;
+      transform: perspective(500px) rotateX(15deg);
+      text-shadow: 
+        0 1px 0 #a3821a, 0 2px 0 #8f7215, 0 3px 0 #7c6210, 
+        0 4px 0 #68520b, 0 5px 1px rgba(0,0,0,.1), 
+        0 0 15px rgba(212, 175, 55, 0.6), 
+        0 5px 20px rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.4);
+      animation: float-text 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes float-text {
+      0% { transform: perspective(500px) rotateX(15deg) translateY(0); }
+      100% { transform: perspective(500px) rotateX(15deg) translateY(-15px); }
+    }
+    .loader-progress-bar {
+      width: 200px; height: 4px; background: #141414; border-radius: 2px; overflow: hidden; margin-top: 2rem;
+    }
+    .loader-progress-fill {
+      height: 100%; background: #D4AF37; width: 0%;
+      animation: fillBar 1.2s ease-out forwards;
+    }
+    @keyframes fillBar { 100% { width: 100%; } }
+    
+    body.loaded #preloader { opacity: 0; visibility: hidden; transform: scale(1.1); }
+
     /* Smooth Accordion Transitions */
     .faq-content {
       max-height: 0;
@@ -44,14 +112,31 @@
     .hero-overlay {
       background: linear-gradient(to right, rgba(9, 9, 11, 0.95) 0%, rgba(9, 9, 11, 0.7) 100%);
     }
+    /* Premium Hover effect for cards */
+    .premium-card {
+      transition: all 0.3s ease;
+    }
+    .premium-card:hover {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+      border-color: rgba(212, 175, 55, 0.5);
+      transform: translateY(-4px);
+    }
+    @keyframes scan { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(100%); } }
   </style>
 </head>
 <body class="bg-brand-dark text-brand-text font-sans antialiased pb-24">
 
+  <!-- Preloader Logo -->
+  <div id="preloader">
+    <div class="loader-dumbbell"><i class="ti ti-barbell"></i></div>
+    <div class="loader-text">IronForge<br><span class="text-brand-hot">Fit</span></div>
+    <div class="loader-progress-bar"><div class="loader-progress-fill"></div></div>
+  </div>
+
   <!-- Navigation -->
-  <nav class="fixed w-full z-50 bg-brand-dark/90 backdrop-blur-md border-b border-zinc-800 transition-all">
+  <nav class="fixed w-full z-50 bg-brand-dark/80 backdrop-blur-lg border-b border-zinc-800/50 transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2 font-black text-xl tracking-tight uppercase">
+      <div class="flex items-center gap-2 font-black text-xl tracking-tight uppercase font-heading">
         <i class="ti ti-barbell text-brand-hot text-2xl"></i>
         IronForge <span class="text-brand-hot">Fit</span>
       </div>
@@ -72,11 +157,11 @@
   <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-[url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=1920')] bg-cover bg-center">
     <div class="absolute inset-0 hero-overlay"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-      <div class="max-w-2xl">
+      <div class="max-w-2xl" data-aos="fade-up" data-aos-duration="1000">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/80 border border-zinc-700 text-xs font-semibold text-zinc-300 mb-6">
           <i class="ti ti-map-pin text-brand-hot"></i> India's Premier Fitness Destination
         </div>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-4">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-4 font-heading">
           Awaken Your Inner Strength.<br>
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-brand-hot">Sankalp Se Siddhi. Pure Iron.</span>
         </h1>
@@ -105,20 +190,20 @@
   <section class="bg-brand-panel border-y border-zinc-800 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-zinc-800">
-        <div>
-          <div class="text-3xl font-black text-white mb-1">500+</div>
+        <div data-aos="zoom-in" data-aos-delay="100">
+          <div class="text-3xl font-black text-white mb-1 font-heading">500+</div>
           <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Active Members</div>
         </div>
-        <div>
-          <div class="text-3xl font-black text-white mb-1">24/7</div>
+        <div data-aos="zoom-in" data-aos-delay="200">
+          <div class="text-3xl font-black text-white mb-1 font-heading">24/7</div>
           <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Facility Access</div>
         </div>
-        <div>
-          <div class="text-3xl font-black text-white mb-1">12+</div>
+        <div data-aos="zoom-in" data-aos-delay="300">
+          <div class="text-3xl font-black text-white mb-1 font-heading">12+</div>
           <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Certified Coaches</div>
         </div>
-        <div>
-          <div class="text-3xl font-black text-white mb-1">10yrs</div>
+        <div data-aos="zoom-in" data-aos-delay="400">
+          <div class="text-3xl font-black text-white mb-1 font-heading">10yrs</div>
           <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Established</div>
         </div>
       </div>
@@ -131,13 +216,13 @@
       <div class="bg-brand-panel border border-brand-hot/30 rounded-3xl p-8 shadow-2xl shadow-yellow-900/10">
         <div class="flex flex-col md:flex-row justify-between items-center mb-8 pb-8 border-b border-zinc-800 gap-6">
           <div>
-            <h2 class="text-3xl font-extrabold text-white mb-2">Welcome back, <span id="dash-name" class="text-brand-hot">Warrior</span>!</h2>
+            <h2 class="text-3xl font-black text-white mb-2 font-heading">Welcome back, <span id="dash-name" class="text-brand-hot">Warrior</span>!</h2>
             <p class="text-zinc-400">Your IronForge journey started on <span id="dash-start-date" class="text-white font-bold"></span>.</p>
             <button onclick="logoutUser()" class="mt-3 text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-5 py-2 rounded-lg font-bold transition-colors shadow-md border border-zinc-700"><i class="ti ti-logout"></i> Secure Log Out</button>
           </div>
           <div class="bg-brand-dark p-4 rounded-2xl border border-zinc-800 text-center min-w-[200px] sm:min-w-[250px]">
             <div class="text-xs text-brand-hot uppercase tracking-widest font-bold mb-1">Iron Aura Level</div>
-            <div class="text-4xl font-black text-white mb-1" id="dash-power-level">0</div>
+            <div class="text-4xl font-black text-white mb-1 font-heading" id="dash-power-level">0</div>
             <div class="mb-3" id="dash-rank"><span class="text-[#cd7f32] font-black uppercase tracking-widest text-lg">Bronze</span></div>
             <div class="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
               <div id="dash-tier-progress" class="bg-brand-hot h-full transition-all duration-1000" style="width: 0%"></div>
@@ -149,20 +234,60 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center justify-center text-center">
             <i class="ti ti-calendar-stats text-4xl text-zinc-500 mb-3"></i>
-            <div class="text-3xl font-black text-white mb-1"><span id="dash-days-active">0</span></div>
+            <div class="text-3xl font-black text-white mb-1 font-heading"><span id="dash-days-active">0</span></div>
             <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Days Active</div>
           </div>
           
           <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center justify-center text-center cursor-pointer hover:border-brand-hot transition-colors" onclick="updateCurrentWeight()">
             <i class="ti ti-scale text-4xl text-brand-hot mb-3"></i>
-            <div class="text-3xl font-black text-white mb-1"><span id="dash-current-wt">0</span> <span class="text-lg text-zinc-500">kg</span></div>
+            <div class="text-3xl font-black text-white mb-1 font-heading"><span id="dash-current-wt">0</span> <span class="text-lg text-zinc-500">kg</span></div>
             <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold flex items-center gap-1">Current Weight <i class="ti ti-edit"></i></div>
           </div>
           
           <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center justify-center text-center">
             <i class="ti ti-target text-4xl text-brand-trust mb-3"></i>
-            <div class="text-3xl font-black text-white mb-1"><span id="dash-target-wt">0</span> <span class="text-lg text-zinc-500">kg</span></div>
+            <div class="text-3xl font-black text-white mb-1 font-heading"><span id="dash-target-wt">0</span> <span class="text-lg text-zinc-500">kg</span></div>
             <div class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Target Weight</div>
+          </div>
+        </div>
+        
+        <!-- AI Macro Logger -->
+        <div class="mt-8 bg-brand-dark p-6 rounded-2xl border border-zinc-800">
+          <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="ti ti-meat text-brand-hot"></i> Smart Food Logger</h3>
+          <p class="text-xs text-zinc-500 mb-4">Enter food and weight to instantly calculate macros using our AI database.</p>
+          <div class="flex flex-col md:flex-row gap-4 mb-4">
+            <div class="flex-1">
+              <label class="block text-xs text-zinc-400 uppercase tracking-widest mb-1">Food Item</label>
+              <input type="text" id="food-input" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="e.g. Chicken Breast" list="food-list">
+              <datalist id="food-list">
+                <option value="Chicken Breast">
+                <option value="White Rice">
+                <option value="Brown Rice">
+                <option value="Oats">
+                <option value="Whole Egg">
+                <option value="Paneer">
+                <option value="Whey Protein">
+                <option value="Sweet Potato">
+                <option value="Almonds">
+              </datalist>
+            </div>
+            <div class="w-full md:w-32">
+              <label class="block text-xs text-zinc-400 uppercase tracking-widest mb-1">Weight (g)</label>
+              <input type="number" id="food-weight" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-hot transition-colors" placeholder="100">
+            </div>
+            <div class="w-full md:w-auto flex items-end">
+              <button onclick="logFood()" class="w-full bg-brand-hot text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-600 transition-colors shadow-lg shadow-yellow-900/20">Add Food</button>
+            </div>
+          </div>
+          <div id="logged-foods" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar border-t border-zinc-800 pt-4 empty:hidden hidden"></div>
+          <div class="mt-4 pt-4 border-t border-zinc-800 flex flex-wrap justify-between items-center text-sm font-bold gap-2">
+            <span class="text-zinc-400">Total Logged Today:</span>
+            <div class="flex gap-4 bg-zinc-900 px-4 py-2 rounded-lg border border-zinc-800">
+              <span class="text-white text-xs"><i class="ti ti-flame text-brand-hot"></i> <span id="log-total-cal" class="text-white">0</span> kcal</span>
+              <span class="text-white text-xs">P: <span id="log-total-p" class="text-brand-hot">0</span>g</span>
+              <span class="text-white text-xs">C: <span id="log-total-c" class="text-brand-trust">0</span>g</span>
+              <span class="text-white text-xs">F: <span id="log-total-f" class="text-blue-400">0</span>g</span>
+            </div>
           </div>
         </div>
 
@@ -202,6 +327,84 @@
           </div>
         </div>
 
+        <!-- Advanced Gym Features -->
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Smart Gym Entry -->
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-brand-trust"></div>
+            <h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="ti ti-qrcode text-brand-hot"></i> Smart Access</h3>
+            <p class="text-xs text-zinc-500 mb-4">Scan at the turnstile to enter.</p>
+            <div class="bg-white p-2 rounded-xl mb-3 shadow-lg">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=IronForge-Secure-Access" alt="Gym Access QR" class="w-28 h-28" id="access-qr">
+            </div>
+            <div class="text-[10px] text-zinc-400 font-mono tracking-widest uppercase flex items-center gap-1">
+              <i class="ti ti-refresh animate-spin"></i> Refreshes in <span id="qr-timer" class="text-brand-hot font-bold text-sm">59</span>s
+            </div>
+          </div>
+
+          <!-- Wearable Sync -->
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 relative flex flex-col">
+             <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="ti ti-activity text-brand-hot"></i> Wearable Sync</h3>
+             <div class="flex items-center justify-between mb-3 bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+               <div class="flex items-center gap-2"><i class="ti ti-heart-rate-monitor text-red-500 text-xl"></i> <span class="text-sm font-bold text-zinc-300">Heart Rate</span></div>
+               <span class="text-xl font-black font-heading">112 <span class="text-xs text-zinc-500 font-normal">bpm</span></span>
+             </div>
+             <div class="flex items-center justify-between mb-4 bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+               <div class="flex items-center gap-2"><i class="ti ti-shoe text-blue-400 text-xl"></i> <span class="text-sm font-bold text-zinc-300">Daily Steps</span></div>
+               <span class="text-xl font-black font-heading">8,432</span>
+             </div>
+             <button class="w-full text-xs font-bold text-zinc-400 hover:text-white border border-zinc-700 rounded-lg py-2 mt-auto transition-colors flex items-center justify-center gap-2 hover:bg-zinc-800"><i class="ti ti-brand-apple"></i> Sync Apple/Fitbit</button>
+          </div>
+
+          <!-- AI Form Checker -->
+          <div class="bg-brand-dark p-6 rounded-2xl border border-zinc-800 flex flex-col">
+             <h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="ti ti-brain text-brand-hot"></i> AI Form Check</h3>
+             <p class="text-xs text-zinc-500 mb-4">Upload your lift video for biomechanical analysis.</p>
+             
+             <div id="ai-video-preview" class="hidden w-full h-40 bg-zinc-900 rounded-xl relative overflow-hidden mb-4 border border-zinc-700">
+               <img src="https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=400" class="w-full h-full object-cover opacity-50 filter grayscale">
+               <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-hot/30 to-transparent w-full h-1/2 animate-[scan_2s_ease-in-out_infinite]"></div>
+               <div class="absolute inset-0 flex items-center justify-center">
+                 <svg width="100" height="100" viewBox="0 0 100 100" class="text-brand-hot animate-pulse">
+                   <circle cx="50" cy="20" r="5" fill="currentColor"/>
+                   <line x1="50" y1="25" x2="50" y2="60" stroke="currentColor" stroke-width="2"/>
+                   <line x1="50" y1="35" x2="20" y2="45" stroke="currentColor" stroke-width="2"/>
+                   <line x1="50" y1="35" x2="80" y2="45" stroke="currentColor" stroke-width="2"/>
+                   <line x1="50" y1="60" x2="30" y2="90" stroke="currentColor" stroke-width="2"/>
+                   <line x1="50" y1="60" x2="70" y2="90" stroke="currentColor" stroke-width="2"/>
+                 </svg>
+               </div>
+             </div>
+
+             <div id="ai-upload-btn" class="flex-grow border-2 border-dashed border-zinc-700 rounded-xl flex flex-col items-center justify-center text-zinc-500 hover:border-brand-hot hover:text-brand-hot transition-colors cursor-pointer p-4 group bg-zinc-900/50" onclick="simulateAIUpload(this)">
+               <i class="ti ti-cloud-upload text-3xl mb-2 group-hover:-translate-y-1 transition-transform"></i>
+               <span class="text-xs font-bold uppercase tracking-widest text-center">Select Video<br><span class="text-[9px] font-normal lowercase">(Max 15 sec)</span></span>
+             </div>
+             
+             <div id="ai-result" class="hidden mt-3 text-xs bg-zinc-900 p-3 rounded-lg border border-brand-trust/50 text-brand-trust flex flex-col gap-2 shadow-inner">
+               <div class="flex items-start gap-2">
+                 <i class="ti ti-checks text-lg flex-shrink-0"></i>
+                 <span><strong class="text-white block mb-0.5">Analysis Complete (Squat):</strong> 
+                 <ul class="list-disc pl-4 mt-1 space-y-1 text-zinc-300">
+                   <li><span class="text-brand-trust">Optimal Depth:</span> Crease of hip below knee.</li>
+                   <li><span class="text-brand-trust">Back Angle:</span> Maintained at 45°.</li>
+                   <li><span class="text-red-400">Warning:</span> Slight knee cave on ascent. Push knees outward.</li>
+                 </ul></span>
+               </div>
+               <button onclick="resetAI()" class="mt-2 text-zinc-500 hover:text-white underline text-[10px] self-end">Analyze Another</button>
+             </div>
+          </div>
+        </div>
+
+        <!-- Spotify Integration -->
+        <div class="mt-8 bg-brand-dark p-6 rounded-2xl border border-zinc-800">
+          <div class="flex items-center justify-between mb-4">
+             <h3 class="text-lg font-bold flex items-center gap-2"><i class="ti ti-brand-spotify text-[#1DB954] text-2xl"></i> Beast Mode Playlist</h3>
+             <span class="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400 font-semibold border border-zinc-700">Syncs with your workout</span>
+          </div>
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX76Wlfdnj7AP?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
         <!-- Precision Nutrition & Timeline Calculator -->
         <div class="mt-6 bg-brand-dark p-6 md:p-8 rounded-2xl border border-zinc-800 flex flex-col lg:flex-row justify-between items-center gap-8">
           <div class="lg:w-1/3 text-center lg:text-left">
@@ -209,14 +412,14 @@
             <p class="text-sm text-zinc-400 mb-4" id="dash-goal-phase">Analyzing your body goals...</p>
             <div class="inline-block bg-zinc-900 px-4 py-2 rounded-xl border border-zinc-800 text-center">
                <div class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-1">Est. Time to Goal</div>
-               <div class="text-3xl font-black text-brand-trust" id="dash-eta">0 <span class="text-sm text-zinc-500 font-normal">days</span></div>
+               <div class="text-3xl font-black text-brand-trust font-heading" id="dash-eta">0 <span class="text-sm text-zinc-500 font-normal">days</span></div>
             </div>
           </div>
           
           <div class="lg:w-2/3 w-full flex flex-col sm:flex-row gap-4">
             <div class="flex-1 bg-zinc-900 p-6 rounded-xl border border-zinc-800 text-center flex flex-col justify-center">
               <div class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-1">Daily Intake Goal</div>
-              <div class="text-4xl font-black text-white" id="dash-calories">0 <span class="text-base text-zinc-500 font-normal">kcal</span></div>
+              <div class="text-4xl font-black text-white font-heading" id="dash-calories">0 <span class="text-base text-zinc-500 font-normal">kcal</span></div>
             </div>
             <div class="flex-1 flex flex-col gap-2 justify-center">
               <div class="bg-zinc-900 p-3 rounded-lg border border-zinc-800 flex justify-between items-center"><span class="text-[10px] text-zinc-500 uppercase tracking-widest">Protein (Muscle)</span><span class="text-sm font-bold text-white" id="dash-protein">0g</span></div>
@@ -249,22 +452,22 @@
   <!-- 3. Why Us — Benefits -->
   <section class="py-20 bg-brand-dark">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-extrabold mb-4">Why Choose IronForge?</h2>
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-black mb-4 font-heading">Why Choose IronForge?</h2>
         <p class="text-zinc-400 max-w-2xl mx-auto">We've eliminated everything that makes traditional gyms intimidating, and kept only what gets you results.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors" data-aos="fade-up" data-aos-delay="100">
           <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-clock"></i></div>
           <h3 class="text-xl font-bold mb-2">24/7 Access</h3>
           <p class="text-sm text-zinc-400">Train on your own schedule. Our facility is open and secure 24 hours a day, 365 days a year.</p>
         </div>
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors" data-aos="fade-up" data-aos-delay="200">
           <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-barbell"></i></div>
           <h3 class="text-xl font-bold mb-2">Modern Equipment</h3>
           <p class="text-sm text-zinc-400">From premium Olympic lifting platforms to advanced isolated cardio zones, we have it all.</p>
         </div>
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-colors" data-aos="fade-up" data-aos-delay="300">
           <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center mb-4 text-brand-hot text-2xl"><i class="ti ti-heart"></i></div>
           <h3 class="text-xl font-bold mb-2">No-Judgement Vibe</h3>
           <p class="text-sm text-zinc-400">A supportive culture where beginners and pro-athletes train side-by-side with mutual respect.</p>
@@ -277,12 +480,12 @@
   <section class="py-20 bg-brand-panel border-y border-zinc-800 relative overflow-hidden">
     <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-hot/5 blur-[100px] rounded-full z-0"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-extrabold mb-4 text-brand-hot">Premium Client Protocols</h2>
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-black mb-4 text-brand-hot font-heading">Premium Client Protocols</h2>
         <p class="text-zinc-400 max-w-2xl mx-auto">More than just a gym floor. We provide complete lifestyle engineering with customized plans.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-brand-dark p-8 rounded-2xl border border-zinc-800 hover:border-brand-hot/50 transition-colors shadow-lg">
+        <div class="bg-brand-dark p-8 rounded-2xl border border-zinc-800 hover:border-brand-hot/50 transition-colors shadow-lg" data-aos="fade-right">
           <div class="w-14 h-14 bg-brand-hot/10 rounded-xl flex items-center justify-center mb-6 text-brand-hot text-3xl"><i class="ti ti-salad"></i></div>
           <h3 class="text-2xl font-bold mb-3">Custom Diet & Macro Plans</h3>
           <p class="text-zinc-400 mb-4">Get a 100% personalized nutritional blueprint. Whether you prefer pure Veg, Eggetarian, or Non-Veg, we calculate your precise macros to ensure maximum muscle gain and fat loss without starving.</p>
@@ -291,7 +494,7 @@
             <li class="flex items-center gap-2"><i class="ti ti-check text-brand-hot"></i> Indian cuisine integrated (Desi diets)</li>
           </ul>
         </div>
-        <div class="bg-brand-dark p-8 rounded-2xl border border-zinc-800 hover:border-brand-hot/50 transition-colors shadow-lg">
+        <div class="bg-brand-dark p-8 rounded-2xl border border-zinc-800 hover:border-brand-hot/50 transition-colors shadow-lg" data-aos="fade-left">
           <div class="w-14 h-14 bg-brand-hot/10 rounded-xl flex items-center justify-center mb-6 text-brand-hot text-3xl"><i class="ti ti-clipboard-list"></i></div>
           <h3 class="text-2xl font-bold mb-3">Tailored Exercise Routines</h3>
           <p class="text-zinc-400 mb-4">Never guess what to do next. You receive a structured, day-by-day workout split tailored to your exact body type, experience level, and end goal.</p>
@@ -307,14 +510,14 @@
   <!-- Day-wise Global Workout & Diet Plan -->
   <section id="plan" class="py-20 bg-brand-dark">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-extrabold mb-4 text-brand-hot">The 7-Day Iron Blueprint</h2>
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-black mb-4 text-brand-hot font-heading">The 7-Day Iron Blueprint</h2>
         <p class="text-zinc-400 max-w-2xl mx-auto">A globally proven, day-wise schedule for guaranteed results. Follow this structured exercise and diet protocol to maximize your gains.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         
         <!-- Day 1 -->
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('monday')">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 premium-card shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('monday')" data-aos="fade-up" data-aos-delay="100">
           <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
             Monday 
             <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Push</span>
@@ -339,7 +542,7 @@
         </div>
 
         <!-- Day 2 -->
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('tuesday')">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 premium-card shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('tuesday')" data-aos="fade-up" data-aos-delay="200">
           <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
             Tuesday 
             <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Pull</span>
@@ -364,7 +567,7 @@
         </div>
 
         <!-- Day 3 -->
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('wednesday')">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 premium-card shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('wednesday')" data-aos="fade-up" data-aos-delay="300">
           <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
             Wednesday 
             <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Legs</span>
@@ -389,7 +592,7 @@
         </div>
 
         <!-- Day 4 -->
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('thursday')">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 premium-card shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('thursday')" data-aos="fade-up" data-aos-delay="400">
           <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
             Thursday 
             <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Cardio</span>
@@ -414,7 +617,7 @@
         </div>
 
         <!-- Day 5 -->
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('friday')">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 premium-card shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('friday')" data-aos="fade-up" data-aos-delay="100">
           <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
             Friday 
             <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Upper</span>
@@ -439,7 +642,7 @@
         </div>
 
         <!-- Day 6 -->
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('saturday')">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 premium-card shadow-lg flex flex-col h-full cursor-pointer group" onclick="openDayModal('saturday')" data-aos="fade-up" data-aos-delay="200">
           <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
             Saturday 
             <span class="text-brand-hot text-[10px] font-bold uppercase tracking-wider bg-brand-hot/10 px-2 py-1 rounded">Lower</span>
@@ -464,7 +667,7 @@
         </div>
 
         <!-- Day 7 -->
-        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 hover:border-brand-hot transition-all shadow-lg flex flex-col h-full md:col-span-2 lg:col-span-3 xl:col-span-2 relative overflow-hidden cursor-pointer group" onclick="openDayModal('sunday')">
+        <div class="bg-brand-panel p-6 rounded-2xl border border-zinc-800 premium-card shadow-lg flex flex-col h-full md:col-span-2 lg:col-span-3 xl:col-span-2 relative overflow-hidden cursor-pointer group" onclick="openDayModal('sunday')" data-aos="fade-up" data-aos-delay="300">
           <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-brand-hot/10 rounded-full blur-2xl"></div>
           <div class="relative z-10 flex flex-col h-full">
             <h3 class="text-xl font-bold mb-1 text-white flex justify-between items-center">
@@ -498,14 +701,14 @@
   <!-- 4. Programs / Classes -->
   <section id="programs" class="py-20 bg-brand-panel border-y border-zinc-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12" data-aos="fade-up">
         <div>
-          <h2 class="text-3xl font-extrabold mb-4">Programs for Every Goal</h2>
+          <h2 class="text-3xl font-black mb-4 font-heading">Programs for Every Goal</h2>
           <p class="text-zinc-400 max-w-xl">Find the perfect structure for your fitness journey. Expert-led classes and independent regimens.</p>
         </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block" data-aos="fade-up" data-aos-delay="100">
           <img src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-5 w-full">
@@ -514,7 +717,7 @@
             <span class="text-xs font-bold text-brand-hot group-hover:text-white transition-colors uppercase tracking-wider">Book Session &rarr;</span>
           </div>
         </a>
-        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block" data-aos="fade-up" data-aos-delay="200">
           <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-5 w-full">
@@ -523,7 +726,7 @@
             <span class="text-xs font-bold text-brand-hot group-hover:text-white transition-colors uppercase tracking-wider">Book Session &rarr;</span>
           </div>
         </a>
-        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block" data-aos="fade-up" data-aos-delay="300">
           <img src="https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-5 w-full">
@@ -532,7 +735,7 @@
             <span class="text-xs font-bold text-brand-hot group-hover:text-white transition-colors uppercase tracking-wider">Learn More &rarr;</span>
           </div>
         </a>
-        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block">
+        <a href="#cta" class="group relative h-64 rounded-2xl overflow-hidden block" data-aos="fade-up" data-aos-delay="400">
           <img src="https://images.pexels.com/photos/3775191/pexels-photo-3775191.jpeg?auto=compress&cs=tinysrgb&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-5 w-full">
@@ -548,14 +751,14 @@
   <!-- 5. Membership Pricing -->
   <section id="pricing" class="py-20 bg-brand-dark">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl font-extrabold mb-4">Transparent Pricing</h2>
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-3xl font-black mb-4 font-heading">Transparent Pricing</h2>
         <p class="text-zinc-400 max-w-2xl mx-auto">No hidden enrollment fees. No complicated cancellation policies. Choose your tier.</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
         <!-- Basic -->
-        <div class="bg-brand-panel p-8 rounded-3xl border border-zinc-800">
+        <div class="bg-brand-panel p-8 rounded-3xl border border-zinc-800 premium-card" data-aos="fade-right">
           <h3 class="text-xl font-bold mb-2">Basic Floor</h3>
           <p class="text-zinc-400 text-sm mb-6">Essential access for independent lifters.</p>
           <div class="mb-6"><span class="text-4xl font-black">₹1,499</span><span class="text-zinc-500">/mo</span></div>
@@ -569,7 +772,7 @@
         </div>
         
         <!-- Standard (Highlighted Anchor) -->
-        <div class="bg-gradient-to-b from-brand-hot/10 to-brand-panel p-8 rounded-3xl border border-brand-hot relative transform md:-translate-y-4 shadow-2xl shadow-yellow-900/20">
+        <div class="bg-gradient-to-b from-brand-hot/10 to-brand-panel p-8 rounded-3xl border border-brand-hot relative transform md:-translate-y-4 shadow-2xl shadow-yellow-900/20 premium-card" data-aos="zoom-in">
           <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-hot text-black text-xs font-bold uppercase tracking-widest px-4 py-1 rounded-full">Most Popular</div>
           <h3 class="text-xl font-bold mb-2">Standard Access</h3>
           <p class="text-zinc-400 text-sm mb-6">The complete gym and class experience.</p>
@@ -584,7 +787,7 @@
         </div>
 
         <!-- Premium -->
-        <div class="bg-brand-panel p-8 rounded-3xl border border-zinc-800">
+        <div class="bg-brand-panel p-8 rounded-3xl border border-zinc-800 premium-card" data-aos="fade-left">
           <h3 class="text-xl font-bold mb-2">Premium Coaching</h3>
           <p class="text-zinc-400 text-sm mb-6">For those wanting guaranteed results fast.</p>
           <div class="mb-6"><span class="text-4xl font-black">₹5,999</span><span class="text-zinc-500">/mo</span></div>
@@ -603,13 +806,13 @@
   <!-- 6. Transformations & Results (Proof Engine) -->
   <section class="py-20 bg-brand-panel border-y border-zinc-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-extrabold mb-4">Real Local Results</h2>
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-black mb-4 font-heading">Real Local Results</h2>
         <p class="text-zinc-400 max-w-2xl mx-auto">Don't take our word for it. Look at what our members have achieved within 90 days.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Review 1 -->
-        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50">
+        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50" data-aos="fade-up" data-aos-delay="100">
           <div class="flex text-yellow-500 text-sm mb-4">
             <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
           </div>
@@ -623,7 +826,7 @@
           </div>
         </div>
         <!-- Review 2 -->
-        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50">
+        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50" data-aos="fade-up" data-aos-delay="200">
           <div class="flex text-yellow-500 text-sm mb-4">
             <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
           </div>
@@ -637,7 +840,7 @@
           </div>
         </div>
         <!-- Review 3 -->
-        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50 hidden lg:block">
+        <div class="bg-zinc-800/40 p-6 rounded-2xl border border-zinc-700/50 hidden lg:block" data-aos="fade-up" data-aos-delay="300">
           <div class="flex text-yellow-500 text-sm mb-4">
             <i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i><i class="ti ti-star-filled"></i>
           </div>
@@ -647,54 +850,6 @@
             <div>
               <div class="text-sm font-bold">Arjun R.</div>
               <div class="text-xs text-brand-trust">Powerlifter</div>
-            </div>
-          </div>
-        </div>
-        <!-- FAQ Item -->
-        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-          <div class="px-6 py-4 flex justify-between items-center select-none">
-            <h4 class="font-bold text-sm sm:text-base">Do you offer personal training?</h4>
-            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
-          </div>
-          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
-            <div class="px-6 py-4 text-sm text-zinc-400">
-              Yes, we have a team of elite certified personal trainers who offer 1-on-1 coaching, tailored workout blueprints, and nutritional guidance. You can book a free assessment session to see if it's right for you.
-            </div>
-          </div>
-        </div>
-        <!-- FAQ Item -->
-        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-          <div class="px-6 py-4 flex justify-between items-center select-none">
-            <h4 class="font-bold text-sm sm:text-base">What are the gym's peak hours?</h4>
-            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
-          </div>
-          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
-            <div class="px-6 py-4 text-sm text-zinc-400">
-              Our busiest hours are typically between 6:00 AM - 8:30 AM and 5:30 PM - 8:30 PM. Since we are open 24/7, coming outside these windows guarantees a much quieter, private workout experience.
-            </div>
-          </div>
-        </div>
-        <!-- FAQ Item -->
-        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-          <div class="px-6 py-4 flex justify-between items-center select-none">
-            <h4 class="font-bold text-sm sm:text-base">Is parking available at the facility?</h4>
-            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
-          </div>
-          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
-            <div class="px-6 py-4 text-sm text-zinc-400">
-              Yes, we provide free dedicated parking for all our members right outside the facility, monitored by 24/7 security cameras so your vehicle is always safe while you train.
-            </div>
-          </div>
-        </div>
-        <!-- FAQ Item -->
-        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-          <div class="px-6 py-4 flex justify-between items-center select-none">
-            <h4 class="font-bold text-sm sm:text-base">Do you have locker rooms and showers?</h4>
-            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
-          </div>
-          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
-            <div class="px-6 py-4 text-sm text-zinc-400">
-              Absolutely. We offer premium locker rooms equipped with clean, private showers, fresh towels, and grooming amenities for your convenience before or after work.
             </div>
           </div>
         </div>
@@ -708,8 +863,8 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
         
         <!-- Trainers -->
-        <div>
-          <h2 class="text-3xl font-extrabold mb-8">Meet Your Coaches</h2>
+        <div data-aos="fade-right">
+          <h2 class="text-3xl font-black mb-8 font-heading">Meet Your Coaches</h2>
           <div class="space-y-6">
             <div class="flex items-center gap-4 bg-brand-panel p-4 rounded-2xl border border-zinc-800">
               <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200" class="w-20 h-20 rounded-xl object-cover">
@@ -731,13 +886,18 @@
         </div>
 
         <!-- Facility Grid -->
-        <div id="facilities">
-          <h2 class="text-3xl font-extrabold mb-8 text-right">Inside the Forge</h2>
+        <div id="facilities" data-aos="fade-left">
+          <h2 class="text-3xl font-black mb-8 text-right font-heading">Inside the Forge</h2>
           <p class="text-zinc-400 text-sm text-right mb-6">Train under the silent, powerful gaze of Lord Hanuman. Heavy iron dumbbells, pro machines, and a purely professional vibe.</p>
           <div class="grid grid-cols-2 gap-3">
             <img src="https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=600" class="rounded-xl h-40 w-full object-cover" alt="Heavy Iron Dumbbells">
             <img src="https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=600" class="rounded-xl h-40 w-full object-cover" alt="Lord Hanuman Wall Art">
-            <img src="https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=1200" class="rounded-xl h-40 w-full object-cover col-span-2">
+            <div class="relative w-full h-48 sm:h-56 rounded-xl overflow-hidden col-span-2 group">
+              <img src="https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=1200" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-black/60 flex items-center justify-center">
+                <button class="bg-brand-hot hover:bg-yellow-600 text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 transform hover:scale-105 transition-all shadow-xl shadow-yellow-900/30 uppercase tracking-widest text-sm"><i class="ti ti-view-360 text-xl"></i> Launch 3D Tour</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -748,14 +908,14 @@
   <!-- 9. FAQ -->
   <section id="faq" class="py-20 bg-brand-panel border-y border-zinc-800">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-extrabold mb-4">Frequently Asked Questions</h2>
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-black mb-4 font-heading">Frequently Asked Questions</h2>
         <p class="text-zinc-400">Everything you need to know before joining.</p>
       </div>
       
       <div class="space-y-3">
         <!-- FAQ Item -->
-        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)" data-aos="fade-up" data-aos-delay="100">
           <div class="px-6 py-4 flex justify-between items-center select-none">
             <h4 class="font-bold text-sm sm:text-base">Do I need prior gym experience?</h4>
             <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
@@ -767,7 +927,7 @@
           </div>
         </div>
         <!-- FAQ Item -->
-        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)" data-aos="fade-up" data-aos-delay="200">
           <div class="px-6 py-4 flex justify-between items-center select-none">
             <h4 class="font-bold text-sm sm:text-base">Are lock-in contract terms required?</h4>
             <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
@@ -779,7 +939,7 @@
           </div>
         </div>
         <!-- FAQ Item -->
-        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)" data-aos="fade-up" data-aos-delay="300">
           <div class="px-6 py-4 flex justify-between items-center select-none">
             <h4 class="font-bold text-sm sm:text-base">Can I freeze my membership if I travel?</h4>
             <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
@@ -787,6 +947,18 @@
           <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
             <div class="px-6 py-4 text-sm text-zinc-400">
               Yes! You can pause your membership for up to 3 months per year at zero cost. Just let the front desk know via WhatsApp or email before you leave.
+            </div>
+          </div>
+        </div>
+        <!-- FAQ Item -->
+        <div class="bg-brand-dark border border-zinc-800 rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)" data-aos="fade-up" data-aos-delay="400">
+          <div class="px-6 py-4 flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm sm:text-base">Do you offer personal training?</h4>
+            <i class="ti ti-chevron-down faq-chevron transition-transform duration-300"></i>
+          </div>
+          <div class="faq-content bg-zinc-900/50 border-t border-zinc-800/50">
+            <div class="px-6 py-4 text-sm text-zinc-400">
+              Yes, we have a team of elite certified personal trainers who offer 1-on-1 coaching, tailored workout blueprints, and nutritional guidance. You can book a free assessment session to see if it's right for you.
             </div>
           </div>
         </div>
@@ -800,11 +972,11 @@
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-yellow-600/10 blur-[100px] rounded-full z-0"></div>
     
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="bg-brand-panel border border-zinc-700 rounded-3xl p-8 md:p-12 shadow-2xl shadow-black">
+      <div class="bg-brand-panel border border-zinc-700 rounded-3xl p-8 md:p-12 shadow-2xl shadow-black" data-aos="zoom-in">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <span class="text-brand-hot font-bold tracking-widest uppercase text-xs mb-2 block">Limited Time Offer</span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Start Your Free Trial Today.</h2>
+            <h2 class="text-3xl sm:text-4xl font-black mb-4 font-heading">Start Your Free Trial Today.</h2>
             <p class="text-zinc-400 mb-8">Come try the facility for 3 days, completely on us. We'll even give you a free body composition scan on day 1.</p>
             
             <div class="space-y-4">
@@ -847,6 +1019,42 @@
     <a href="#" class="bg-white text-[#25D366] font-bold text-xs px-4 py-2 rounded-full shadow-sm hover:bg-gray-100 transition-colors">
       Connect
     </a>
+  </div>
+
+  <!-- Floating AI Assistant Button -->
+  <div class="fixed bottom-20 right-4 md:bottom-4 md:right-4 z-50">
+    <button onclick="toggleAIChat()" class="w-14 h-14 bg-brand-hot hover:bg-yellow-600 rounded-full shadow-2xl flex items-center justify-center text-black transition-transform hover:scale-110 border-2 border-yellow-300 relative group">
+      <i class="ti ti-robot text-2xl"></i>
+      <span class="absolute -top-1 -right-1 flex h-4 w-4">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-brand-dark"></span>
+      </span>
+      <div class="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-zinc-900 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-zinc-700 pointer-events-none">Ask AI Coach</div>
+    </button>
+  </div>
+
+  <!-- AI Chat Window -->
+  <div id="ai-chat-window" class="fixed bottom-24 right-4 md:bottom-20 md:right-4 w-80 h-96 bg-brand-panel border border-brand-hot/50 rounded-2xl shadow-2xl z-50 flex flex-col hidden overflow-hidden transition-all transform origin-bottom-right">
+    <div class="bg-brand-dark p-3 border-b border-zinc-800 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-brand-hot flex items-center justify-center text-black"><i class="ti ti-robot"></i></div>
+        <div>
+          <div class="text-sm font-bold text-white">IronBot AI</div>
+          <div class="text-[9px] text-[#10B981] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Online</div>
+        </div>
+      </div>
+      <button onclick="toggleAIChat()" class="text-zinc-500 hover:text-white"><i class="ti ti-x text-lg"></i></button>
+    </div>
+    <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-3 bg-zinc-900/50 custom-scrollbar text-sm">
+      <div class="flex gap-2">
+        <div class="w-6 h-6 rounded-full bg-brand-hot flex-shrink-0 flex items-center justify-center text-black text-xs"><i class="ti ti-robot"></i></div>
+        <div class="bg-zinc-800 p-2.5 rounded-xl rounded-tl-none text-zinc-300">Greetings, Warrior. I am your AI Coach. How can I assist your training or diet today?</div>
+      </div>
+    </div>
+    <div class="p-3 bg-brand-dark border-t border-zinc-800 flex gap-2">
+      <input type="text" id="chat-input" class="flex-grow bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-hot text-sm" placeholder="Ask about creatine, workouts..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+      <button onclick="sendChatMessage()" class="bg-brand-hot text-black px-3 rounded-lg hover:bg-yellow-600 transition-colors"><i class="ti ti-send"></i></button>
+    </div>
   </div>
 
   <footer class="py-8 bg-black text-center border-t border-zinc-900">
@@ -925,7 +1133,7 @@
       <div class="p-8 pt-10">
         <div class="text-center mb-8">
           <i class="ti ti-user-plus text-5xl text-brand-hot mb-4"></i>
-          <h3 class="text-2xl font-extrabold text-white mb-2" id="auth-title">Access The Forge</h3>
+          <h3 class="text-2xl font-black text-white mb-2 font-heading" id="auth-title">Access The Forge</h3>
           <p class="text-sm text-zinc-400" id="auth-subtitle">Login or register to securely track your journey.</p>
         </div>
 
@@ -964,11 +1172,65 @@
     </div>
   </div>
 
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
+    // Initialize Scroll Animations
+    AOS.init({ once: true, duration: 800, offset: 50 });
+
+    // Preloader Logic
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.body.classList.add('loaded');
+      }, 600); // 600ms delay to make sure the animation is visible
+    });
+
     // --- USER DASHBOARD & AUTH LOGIC ---
     const API_URL = '/api';
     let userData = JSON.parse(sessionStorage.getItem('ironForgeUser')) || null;
     let authMode = 'login';
+
+    // --- AI MACRO LOGGER & DATABASE ---
+    const foodDatabase = {
+      "chicken breast": { p: 31, c: 0, f: 3.6, cal: 165 },
+      "white rice": { p: 2.7, c: 28, f: 0.3, cal: 130 },
+      "brown rice": { p: 2.6, c: 23, f: 0.9, cal: 111 },
+      "oats": { p: 13.5, c: 68, f: 6.5, cal: 389 },
+      "whole egg": { p: 13, c: 1.1, f: 11, cal: 155 },
+      "paneer": { p: 18, c: 1.2, f: 20, cal: 265 },
+      "whey protein": { p: 75, c: 10, f: 3, cal: 380 },
+      "sweet potato": { p: 1.6, c: 20, f: 0.1, cal: 86 },
+      "almonds": { p: 21, c: 22, f: 50, cal: 579 }
+    };
+
+    let loggedFoods = [];
+    function logFood() {
+      const nameInput = document.getElementById('food-input');
+      const weightInput = document.getElementById('food-weight');
+      const name = nameInput.value.trim().toLowerCase();
+      const weight = parseFloat(weightInput.value);
+      if (!name || isNaN(weight) || weight <= 0) return alert("Please enter a valid food name and weight.");
+      
+      let macros = foodDatabase[name] || { p: 5, c: 10, f: 5, cal: 105 }; 
+      const multiplier = weight / 100;
+      
+      loggedFoods.push({ name: nameInput.value, weight, p: Math.round(macros.p * multiplier), c: Math.round(macros.c * multiplier), f: Math.round(macros.f * multiplier), cal: Math.round(macros.cal * multiplier) });
+      nameInput.value = ''; weightInput.value = '';
+      renderLoggedFoods();
+    }
+
+    function renderLoggedFoods() {
+      const container = document.getElementById('logged-foods');
+      let html = ''; let totalP = 0, totalC = 0, totalF = 0, totalCal = 0;
+      loggedFoods.forEach((item, index) => {
+        totalP += item.p; totalC += item.c; totalF += item.f; totalCal += item.cal;
+        html += `<div class="flex justify-between items-center p-3 bg-zinc-900 border border-zinc-800 rounded-xl"><div><div class="text-sm font-bold text-white">${item.name} <span class="text-xs text-zinc-500 font-normal">(${item.weight}g)</span></div><div class="text-[10px] text-zinc-400 mt-1">${item.cal} kcal</div></div><div class="flex gap-3 text-xs font-bold items-center"><span class="text-brand-hot">${item.p}g P</span><span class="text-brand-trust">${item.c}g C</span><span class="text-blue-400">${item.f}g F</span><button onclick="removeFood(${index})" class="text-zinc-500 hover:text-red-500 ml-2 text-lg"><i class="ti ti-trash"></i></button></div></div>`;
+      });
+      container.innerHTML = html; container.classList.remove('hidden');
+      document.getElementById('log-total-p').innerText = totalP; document.getElementById('log-total-c').innerText = totalC; document.getElementById('log-total-f').innerText = totalF; document.getElementById('log-total-cal').innerText = totalCal;
+    }
+    function removeFood(index) { loggedFoods.splice(index, 1); renderLoggedFoods(); }
 
     function initApp() {
       if (userData) {
@@ -1043,6 +1305,8 @@
           const data = await res.json();
           if(!res.ok) return alert(data.error);
           sessionStorage.setItem('ironForgeUser', JSON.stringify(data.user));
+          localStorage.setItem('ironForge_db_' + name.toLowerCase(), JSON.stringify(payload));
+          sessionStorage.setItem('ironForgeUser', JSON.stringify(payload));
         } else {
           const res = await fetch(`${API_URL}/login`, {
             method: 'POST',
@@ -1052,10 +1316,16 @@
           const data = await res.json();
           if(!res.ok) return alert(data.error);
           sessionStorage.setItem('ironForgeUser', JSON.stringify(data.user));
+          const stored = localStorage.getItem('ironForge_db_' + name.toLowerCase());
+          if(!stored) return alert("User not found! Please register first.");
+          const userObj = JSON.parse(stored);
+          if(userObj.password !== password) return alert("Incorrect password!");
+          sessionStorage.setItem('ironForgeUser', stored);
         }
         location.reload();
       } catch (err) {
         alert("Server connection failed. Make sure your Node.js backend is running!");
+        alert("Login error occurred! Check your input.");
       }
     }
 
@@ -1074,6 +1344,7 @@
         userData.weightHistory.push({ date: todayDateStr, weight: newWt });
         
         sessionStorage.setItem('ironForgeUser', JSON.stringify(userData));
+        localStorage.setItem('ironForge_db_' + userData.name.toLowerCase(), JSON.stringify(userData));
         
         await fetch(`${API_URL}/update-weight`, {
           method: 'POST',
@@ -1159,6 +1430,52 @@
       updateLeaderboard();
     }
 
+    // Dynamic Features Logic (Timer & AI Form Check Simulation)
+    setInterval(() => {
+      const timer = document.getElementById('qr-timer');
+      if(timer) {
+        let val = parseInt(timer.innerText);
+        if(val <= 1) val = 60;
+        timer.innerText = val - 1;
+      }
+    }, 1000);
+
+    function simulateAIUpload(btn) {
+      btn.classList.add('hidden');
+      const preview = document.getElementById('ai-video-preview');
+      const result = document.getElementById('ai-result');
+      
+      preview.classList.remove('hidden');
+      result.classList.add('hidden');
+      
+      setTimeout(() => {
+        preview.classList.add('hidden');
+        result.classList.remove('hidden');
+      }, 4000);
+    }
+    function resetAI() {
+      document.getElementById('ai-result').classList.add('hidden');
+      document.getElementById('ai-upload-btn').classList.remove('hidden');
+    }
+
+    // --- AI CHATBOT LOGIC ---
+    function toggleAIChat() { document.getElementById('ai-chat-window').classList.toggle('hidden'); }
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const msg = input.value.trim();
+      if (!msg) return;
+      const chatMessages = document.getElementById('chat-messages');
+      chatMessages.innerHTML += `<div class="flex gap-2 justify-end"><div class="bg-brand-hot p-2.5 rounded-xl rounded-tr-none text-black font-medium">${msg}</div></div>`;
+      input.value = ''; chatMessages.scrollTop = chatMessages.scrollHeight;
+      setTimeout(() => {
+        let reply = "I am your AI Coach. Keep pushing hard!";
+        if(msg.toLowerCase().includes('creatine')) reply = "Creatine Monohydrate helps increase ATP production for explosive energy and muscle fullness.";
+        if(msg.toLowerCase().includes('protein')) reply = "Aim for 1.6 to 2.2 grams of protein per kg of body weight for optimal muscle hypertrophy.";
+        chatMessages.innerHTML += `<div class="flex gap-2"><div class="w-6 h-6 rounded-full bg-brand-hot flex-shrink-0 flex items-center justify-center text-black text-xs"><i class="ti ti-robot"></i></div><div class="bg-zinc-800 p-2.5 rounded-xl rounded-tl-none text-zinc-300">${reply}</div></div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+    }
+
     let weightChartInstance = null;
     function renderWeightChart() {
       if (!userData.weightHistory) userData.weightHistory = [{ date: new Date(userData.startDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }), weight: userData.startWt }];
@@ -1242,8 +1559,12 @@
 
     async function updateLeaderboard() {
       try {
-        const res = await fetch(`${API_URL}/users`);
-        const allUsersList = await res.json();
+        const allUsersList = [
+          { name: "Coach Vikram", progressData: { w1: true, w2: true, w3: true, d1: true, d2: true, d3: true, d4: true, d5: true } },
+          { name: "Priya S.", progressData: { w1: true, d1: true, d2: true } },
+          { name: "Rahul T.", progressData: { w1: true, w2: true, d1: true } }
+        ];
+        if (userData) allUsersList.push(userData);
         
         const lb = document.getElementById('leaderboard-content');
         let html = '';
@@ -1649,6 +1970,7 @@
       Object.keys(tempDietState).forEach(key => userData.progressData[key] = tempDietState[key]);
       
       sessionStorage.setItem('ironForgeUser', JSON.stringify(userData));
+      localStorage.setItem('ironForge_db_' + userData.name.toLowerCase(), JSON.stringify(userData));
       
       try {
         await fetch(`${API_URL}/sync`, {
@@ -1656,6 +1978,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name: userData.name, progressData: userData.progressData })
         });
+        localStorage.setItem('ironForge_db_' + userData.name.toLowerCase(), JSON.stringify(userData));
         updateDashboard();
         closeModal('day-modal');
         alert("Progress Synced Successfully! Iron Aura Power Level Updated.");
